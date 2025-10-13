@@ -3,7 +3,8 @@
     <div class="contact-container">
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
-        Feel free to shoot me a message!
+        Feel free to shoot me a message! <br />
+         I'll respond as soon as I can.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
@@ -55,14 +56,28 @@ function handleSubmit() {
 
 <style scoped>
 .contact {
+  position: relative;
   padding: 6rem 1rem;
-  background:
-    url("@/assets/GoldenLines.png"),
-    radial-gradient(circle at center, #183a17, #0e1b12);
+  background: radial-gradient(circle at center, #183a17, #0e1b12);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
+.contact::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("@/assets/GoldenLines.png") center/cover no-repeat;
+  transform: rotate(180deg); /* 🔁 adjust rotation as desired */
+  z-index: 0;
+}
+
+.contact > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 .contact-container {
   max-width: 600px;

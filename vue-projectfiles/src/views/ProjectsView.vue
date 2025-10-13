@@ -18,17 +18,20 @@
 
 <script lang="ts" setup>
 import activeKnockoutImg from '@/assets/ActiveKnockout.png'
+import travelPlannerImg from '@/assets/TravelPlanner.png'
+import everythingMazesImg from '@/assets/EverythingMazes.png'
+
 
 const projects = [
   {
-    title: "Travel Community App",
-    description: "Android app to share trip itineraries and experiences using Firebase.",
-    link: "https://github.com/anirudh-naveen",
-    image: "https://placehold.co/600x400/1b2b18/FFF?text=Travel+Community"
+    title: "Travel Planner App",
+    description: "Android app to share trip itineraries and experiences using a Firebase database.",
+    link: "https://github.com/anirudh-naveen/Travel-Planner?tab=readme-ov-file",
+    image: travelPlannerImg
   },
   {
     title: "Active Knockout",
-    description: "VR-based exercise experience with interactive boxing gameplay.",
+    description: "Meta Quest VR exercise experience with interactive boxing gameplay.",
     link: "https://github.com/anirudh-naveen/ActiveKnockout",
     image: activeKnockoutImg
   },
@@ -36,7 +39,7 @@ const projects = [
     title: "Everything Mazes",
     description: "Unity-built video game where players can generate, customize, and play through mazes.",
     link: "https://github.com/anirudh-naveen/Everything-Mazes",
-    image: "https://placehold.co/600x400/1b2b18/FFF?text=Everything+Mazes"
+    image: everythingMazesImg
   }
 ]
 </script>
