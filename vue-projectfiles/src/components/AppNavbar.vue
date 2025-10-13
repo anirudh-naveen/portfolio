@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="nav-container">
-      <h1 class="logo">Anirudh</h1>
+      <h1 class="logo">Anirudh Naveen</h1>
       <div class="links">
         <RouterLink to="/" class="nav-link" exact-active-class="active">Home</RouterLink>
         <RouterLink to="/projects" class="nav-link" exact-active-class="active">Projects</RouterLink>

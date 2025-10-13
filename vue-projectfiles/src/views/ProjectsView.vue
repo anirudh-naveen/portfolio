@@ -25,16 +25,10 @@ const projects = [
     image: "https://placehold.co/600x400/1b2b18/FFF?text=Travel+Community"
   },
   {
-    title: "AI Marketplace Tool",
-    description: "Platform that uses AI to generate product listings and descriptions.",
-    link: "https://github.com/anirudh-naveen",
-    image: "https://placehold.co/600x400/1b2b18/FFF?text=AI+Marketplace"
-  },
-  {
-    title: "Maze Generator (Unity)",
-    description: "Procedural maze generator built with Unity and C#.",
-    link: "https://github.com/anirudh-naveen",
-    image: "https://placehold.co/600x400/1b2b18/FFF?text=Maze+Generator"
+    title: "Active Knockout",
+    description: "VR-based exercise experience with interactive boxing gameplay.",
+    link: "https://github.com/anirudh-naveen/ActiveKnockout",
+    image: "https://placehold.co/600x400/1b2b18/FFF?text=Active+Knockout"
   }
 ]
 </script>
@@ -110,4 +104,5 @@ const projects = [
 .project-link:hover {
   color: #f6e7b5;
 }
+
 </style>

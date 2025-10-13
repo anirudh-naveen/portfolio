@@ -2,9 +2,9 @@ import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
-import HomeView from './views/HomeView.vue'
-import ProjectsView from '/Users/anirudh/Documents/GitHub/Website/vue-projectfiles/src/views/ProjectsView.vue'
-import ContactView from '/Users/anirudh/Documents/GitHub/Website/vue-projectfiles/src/views/ProjectsView.vue'
+import HomeView from '@/views/HomeView.vue'
+import ProjectsView from '@/views/ProjectsView.vue'
+import ContactView from '@/views/ContactView.vue'
 
 const router = createRouter({
   history: createWebHistory(),

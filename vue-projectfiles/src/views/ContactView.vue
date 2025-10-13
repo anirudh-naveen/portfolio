@@ -3,7 +3,7 @@
     <div class="contact-container">
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
-        Let’s collaborate or just say hello 👋
+        Feel free to shoot me a message!
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
