@@ -17,6 +17,8 @@
 </template>
 
 <script lang="ts" setup>
+import activeKnockoutImg from '@/assets/ActiveKnockout.png'
+
 const projects = [
   {
     title: "Travel Community App",
@@ -28,7 +30,13 @@ const projects = [
     title: "Active Knockout",
     description: "VR-based exercise experience with interactive boxing gameplay.",
     link: "https://github.com/anirudh-naveen/ActiveKnockout",
-    image: "https://placehold.co/600x400/1b2b18/FFF?text=Active+Knockout"
+    image: activeKnockoutImg
+  },
+  {
+    title: "Everything Mazes",
+    description: "Unity-built video game where players can generate, customize, and play through mazes.",
+    link: "https://github.com/anirudh-naveen/Everything-Mazes",
+    image: "https://placehold.co/600x400/1b2b18/FFF?text=Everything+Mazes"
   }
 ]
 </script>
@@ -36,7 +44,9 @@ const projects = [
 <style scoped>
 .projects {
   padding: 6rem 1rem;
-  background: #0d1912;
+  background:
+    url("@/assets/GoldenLines.png"),
+    radial-gradient(circle at center, #183a17, #0e1b12);
 }
 
 .projects-container {

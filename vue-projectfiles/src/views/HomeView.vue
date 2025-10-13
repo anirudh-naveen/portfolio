@@ -1,14 +1,20 @@
 <template>
   <section class="landing">
     <div class="container">
-      <h1 class="name">
-      Hello.<br />
-      My name is Anirudh.
-      </h1>
+      <div class="orb-background">
+        <Orb
+          :hoverIntensity="0.5"
+          :rotateOnHover="true"
+          :hue="90"
+          :forceHoverState="true"
+        />
+      </div>
+
+      <h1 class="name">Hi. <br /> I'm Anirudh Naveen.</h1>
       <h2 class="title">Software Developer</h2>
       <p class="description">
         I’m a creator who loves turning ideas into something real, whether it’s through design, code, or storytelling. <br />
-        I thrive on blending creativity with logic to build projects that feel both imaginative and meaningful.
+        I thrive on blending creativity with logic to build projects that are both imaginative and meaningful.
       </p>
       <div class="links">
         <a href="https://github.com/anirudh-naveen" target="_blank" class="link-button">GitHub</a>
@@ -17,7 +23,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- Skills Section -->
   <section class="skills">
@@ -68,8 +73,6 @@
     </div>
   </section>
 
-
-
   <!-- Languages Section -->
   <section class="languages">
     <div class="languages-container">
@@ -91,7 +94,7 @@
 </template>
 
 <script lang="ts" setup>
-// Add animation or interactivity here if needed later
+import Orb from "@/bits/TheOrb.vue";
 </script>
 
 <style scoped>
@@ -101,7 +104,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at top left, #183a17, #0e1b12);
+  background:
+    url("@/assets/GoldenLines.png"),
+    radial-gradient(circle at top left, #183a17, #0e1b12);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   font-family: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
   padding: 3rem 1rem;
   color: #eae8e1;
@@ -131,7 +139,7 @@
 }
 
 .description {
-  font-size: 1.0rem;
+  font-size: 1rem;
   color: #c9c7b6;
   line-height: 1.6;
   margin-bottom: 3rem;
@@ -228,8 +236,6 @@
   transform: scale(1.1);
   filter: brightness(1.2);
 }
-
-
 
 /* --- Languages Section --- */
 .languages {

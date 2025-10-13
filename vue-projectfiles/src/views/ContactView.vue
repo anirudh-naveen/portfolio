@@ -56,7 +56,9 @@ function handleSubmit() {
 <style scoped>
 .contact {
   padding: 6rem 1rem;
-  background: radial-gradient(circle at center, #183a17, #0e1b12);
+  background:
+    url("@/assets/GoldenLines.png"),
+    radial-gradient(circle at center, #183a17, #0e1b12);
   display: flex;
   align-items: center;
   justify-content: center;

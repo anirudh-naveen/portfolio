@@ -11,6 +11,10 @@
   </nav>
 </template>
 
+<script setup lang="ts">
+// No additional script logic needed for this navbar
+</script>
+
 <style scoped>
 .navbar {
   background: rgba(10, 20, 14, 0.9);
@@ -56,4 +60,5 @@
   border-bottom: 2px solid #d4af37;
   padding-bottom: 2px;
 }
+
 </style>
