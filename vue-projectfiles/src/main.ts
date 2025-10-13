@@ -1,12 +1,21 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-
+import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
-import router from './router'
 
-const app = createApp(App)
+import HomeView from './views/HomeView.vue'
+import ProjectsView from '/Users/anirudh/Documents/GitHub/Website/vue-projectfiles/src/views/ProjectsView.vue'
+import ContactView from '/Users/anirudh/Documents/GitHub/Website/vue-projectfiles/src/views/ProjectsView.vue'
 
-app.use(createPinia())
-app.use(router)
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', name: 'Home', component: HomeView },
+    { path: '/projects', name: 'Projects', component: ProjectsView },
+    { path: '/contact', name: 'Contact', component: ContactView }
+  ],
+  scrollBehavior() {
+    return { top: 0 }
+  }
+})
 
-app.mount('#app')
+createApp(App).use(router).mount('#app')
