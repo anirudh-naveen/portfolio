@@ -16,8 +16,11 @@
   </section>
 </template>
 
+
+
 <script lang="ts" setup>
 import { ref } from 'vue'
+import emailjs from 'emailjs-com'
 
 const form = ref({
   name: '',
@@ -26,10 +29,29 @@ const form = ref({
 })
 
 function handleSubmit() {
-  alert(`Thanks ${form.value.name}, your message has been sent!`)
-  form.value = { name: '', email: '', message: '' }
+  const serviceID = 'my_outlook'
+  const templateID = 'personal_template'
+  const userID = 'zCAdzklgHrEgoOc4N'
+
+  const templateParams = {
+    from_name: form.value.name,
+    from_email: form.value.email,
+    message: form.value.message
+  }
+
+  emailjs.send(serviceID, templateID, templateParams, userID)
+    .then(() => {
+      alert('Message sent successfully!')
+      form.value = { name: '', email: '', message: '' }
+    })
+    .catch((error) => {
+      alert('Failed to send message. Please try again later.')
+      console.error('EmailJS error:', error)
+    })
 }
 </script>
+
+
 
 <style scoped>
 .contact {
