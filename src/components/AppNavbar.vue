@@ -12,7 +12,6 @@
 </template>
 
 <script setup lang="ts">
-// No additional script logic needed for this navbar
 </script>
 
 <style scoped>
