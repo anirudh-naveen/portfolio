@@ -6,4 +6,4 @@ This repository holds the files for my website. The site is set to follow the ME
  - Vue.js
  - Node.js
 
-Currently, the deployed site only works successfuly on a desktop.
+Unfortunately, the deployed site is currently broken, and I am working on getting a fix out ASAP.
