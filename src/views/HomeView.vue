@@ -2,24 +2,28 @@
   <section class="landing">
     <div class="container">
       <div class="orb-background">
-        <Orb
-          :hoverIntensity="0.5"
-          :rotateOnHover="true"
-          :hue="90"
-          :forceHoverState="true"
-        />
+        <Orb :hoverIntensity="0.5" :rotateOnHover="true" :hue="90" :forceHoverState="true" />
       </div>
 
-      <h1 class="name">Hi. <br /> I'm Anirudh Naveen.</h1>
+      <h1 class="name">
+        Hi. <br />
+        I'm Anirudh Naveen.
+      </h1>
       <h2 class="title">Software Developer</h2>
       <p class="description">
-        I’m a creator who loves turning ideas into something real, whether it’s through design, code, or storytelling. <br />
-        I thrive on blending creativity with logic to build projects that are both imaginative and meaningful.
+        I’m a creator who loves turning ideas into something real, whether it’s through design,
+        code, or storytelling. <br />
+        I thrive on blending creativity with logic to build projects that are both imaginative and
+        meaningful.
       </p>
       <div class="links">
         <a href="https://github.com/anirudh-naveen" target="_blank" class="link-button">GitHub</a>
-        <a href="https://www.linkedin.com/in/anirudhnaveen/" target="_blank" class="link-button">LinkedIn</a>
-        <a href="https://www.instagram.com/anirudhnav/" target="_blank" class="link-button">Instagram</a>
+        <a href="https://www.linkedin.com/in/anirudhnaveen/" target="_blank" class="link-button"
+          >LinkedIn</a
+        >
+        <a href="https://www.instagram.com/anirudhnav/" target="_blank" class="link-button"
+          >Instagram</a
+        >
       </div>
     </div>
   </section>
@@ -84,9 +88,9 @@
         <div class="languages-card">C++</div>
         <div class="languages-card">C#</div>
         <div class="languages-card">HTML</div>
+        <div class="languages-card">JavaScript</div>
         <div class="languages-card">TypeScript</div>
         <div class="languages-card">SQL</div>
-        <div class="languages-card">Swift</div>
         <div class="languages-card">Assembly</div>
       </div>
     </div>
@@ -94,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import Orb from "@/bits/TheOrb.vue";
+import Orb from '@/bits/TheOrb.vue'
 </script>
 
 <style scoped>
@@ -105,12 +109,15 @@ import Orb from "@/bits/TheOrb.vue";
   align-items: center;
   justify-content: center;
   background:
-    url("@/assets/GoldenLines.png"),
-    radial-gradient(circle at top left, #183a17, #0e1b12);
+    url('@/assets/GoldenLines.png'), radial-gradient(circle at top left, #183a17, #0e1b12);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  font-family: "Poppins", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:
+    'Poppins',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
   padding: 3rem 1rem;
   color: #eae8e1;
   animation: fadeIn 1.2s ease-in-out;
@@ -215,7 +222,9 @@ import Orb from "@/bits/TheOrb.vue";
   height: 60px;
   object-fit: contain;
   filter: brightness(0.9);
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    filter 0.3s ease;
   margin-bottom: 0.5rem;
 }
 
