@@ -20,36 +20,41 @@
 import activeKnockoutImg from '@/assets/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/TravelPlanner.png'
 import everythingMazesImg from '@/assets/EverythingMazes.png'
-
+import findAnimationImg from '@/assets/FindAnimation.png'
 
 const projects = [
   {
-    title: "Travel Planner App",
-    description: "Android app to share trip itineraries and experiences using a Firebase database.",
-    link: "https://github.com/anirudh-naveen/Travel-Planner?tab=readme-ov-file",
-    image: travelPlannerImg
+    title: 'Find Animation',
+    description: 'MEVN stack web app to search, view, and track animation movies and series.',
+    link: 'https://github.com/anirudh-naveen/Find-Animation/blob/main/README.md',
+    image: findAnimationImg,
   },
   {
-    title: "Active Knockout",
-    description: "Meta Quest VR exercise experience with interactive boxing gameplay.",
-    link: "https://github.com/anirudh-naveen/ActiveKnockout",
-    image: activeKnockoutImg
+    title: 'Travel Planner App',
+    description: 'Android app to share trip itineraries and experiences using a Firebase database.',
+    link: 'https://github.com/anirudh-naveen/Travel-Planner?tab=readme-ov-file',
+    image: travelPlannerImg,
   },
   {
-    title: "Everything Mazes",
-    description: "Unity-built video game where players can generate, customize, and play through mazes.",
-    link: "https://github.com/anirudh-naveen/Everything-Mazes",
-    image: everythingMazesImg
-  }
+    title: 'Active Knockout',
+    description: 'Meta Quest VR exercise experience with interactive boxing gameplay.',
+    link: 'https://github.com/anirudh-naveen/ActiveKnockout',
+    image: activeKnockoutImg,
+  },
+  {
+    title: 'Everything Mazes',
+    description:
+      'Unity-built video game where players can generate, customize, and play through mazes.',
+    link: 'https://github.com/anirudh-naveen/Everything-Mazes',
+    image: everythingMazesImg,
+  },
 ]
 </script>
 
 <style scoped>
 .projects {
   padding: 6rem 1rem;
-  background:
-    url("@/assets/GoldenLines.png"),
-    radial-gradient(circle at center, #183a17, #0e1b12);
+  background: url('@/assets/GoldenLines.png'), radial-gradient(circle at center, #183a17, #0e1b12);
 }
 
 .projects-container {
@@ -117,5 +122,4 @@ const projects = [
 .project-link:hover {
   color: #f6e7b5;
 }
-
 </style>
