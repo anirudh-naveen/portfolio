@@ -4,7 +4,7 @@
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
         Feel free to shoot me a message! <br />
-         I'll respond as soon as I can.
+        I'll respond as soon as I can.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
@@ -17,8 +17,6 @@
   </section>
 </template>
 
-
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 import emailjs from 'emailjs-com'
@@ -26,7 +24,7 @@ import emailjs from 'emailjs-com'
 const form = ref({
   name: '',
   email: '',
-  message: ''
+  message: '',
 })
 
 function handleSubmit() {
@@ -37,10 +35,11 @@ function handleSubmit() {
   const templateParams = {
     from_name: form.value.name,
     from_email: form.value.email,
-    message: form.value.message
+    message: form.value.message,
   }
 
-  emailjs.send(serviceID, templateID, templateParams, userID)
+  emailjs
+    .send(serviceID, templateID, templateParams, userID)
     .then(() => {
       alert('Message sent successfully!')
       form.value = { name: '', email: '', message: '' }
@@ -52,10 +51,15 @@ function handleSubmit() {
 }
 </script>
 
-
-
 <style scoped>
 .contact {
+  input::placeholder,
+  textarea::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #b8c5b0;
+    opacity: 1;
+  }
   position: relative;
   padding: 6rem 1rem;
   background: radial-gradient(circle at center, #183a17, #0e1b12);
@@ -65,11 +69,11 @@ function handleSubmit() {
 }
 
 .contact::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
-  background: url("@/assets/GoldenLines.png") center/cover no-repeat;
-  transform: rotate(180deg); /* 🔁 adjust rotation as desired */
+  background: url('@/assets/GoldenLines.png') center/cover no-repeat;
+  transform: rotate(180deg);
   z-index: 0;
 }
 
@@ -77,7 +81,6 @@ function handleSubmit() {
   position: relative;
   z-index: 1;
 }
-
 
 .contact-container {
   max-width: 600px;
@@ -103,7 +106,8 @@ function handleSubmit() {
   gap: 1rem;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 1rem;
   border-radius: 10px;
   border: 1px solid #264f27;
@@ -113,7 +117,8 @@ input, textarea {
   outline: none;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #d4af37;
   box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
