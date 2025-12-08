@@ -9,7 +9,7 @@
         Hi. <br />
         I'm Anirudh Naveen.
       </h1>
-      <h2 class="title">Software Developer</h2>
+      <h2 class="title">Software & Data Engineer</h2>
       <p class="description">
         I’m a creator who loves turning ideas into something real, whether it’s through design,
         code, or storytelling. <br />
