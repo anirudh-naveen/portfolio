@@ -2,7 +2,7 @@ name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
@@ -36,10 +36,29 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Verify build output
+        run: |
+          if [ ! -f "dist/index.html" ]; then
+            echo "Error: dist/index.html not found after build"
+            exit 1
+          fi
+          echo "Build verification:"
+          echo "- index.html exists: ✓"
+          echo "- Checking asset paths..."
+          grep -o 'src="/Website/assets/[^"]*"' dist/index.html | head -1 || echo "Warning: Could not find asset paths with /Website/ base"
+          grep -o 'href="/Website/assets/[^"]*"' dist/index.html | head -1 || echo "Warning: Could not find CSS paths with /Website/ base"
+
       - name: Add SPA fallback and disable Jekyll
         run: |
+          # Copy index.html to 404.html for SPA routing
           cp dist/index.html dist/404.html
+          # Create .nojekyll to disable Jekyll processing
           touch dist/.nojekyll
+          # Fix favicon path to use absolute path with base URL
+          # This ensures favicon loads correctly when 404.html is served from subdirectories
+          # Using perl for cross-platform compatibility (available on GitHub Actions runners)
+          perl -i -pe 's|href="\./favicon|href="/Website/favicon|g' dist/404.html
+          perl -i -pe 's|href="\./favicon|href="/Website/favicon|g' dist/index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
