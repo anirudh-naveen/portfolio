@@ -56,9 +56,15 @@ jobs:
           touch dist/.nojekyll
           # Fix favicon path to use absolute path with base URL
           # This ensures favicon loads correctly when 404.html is served from subdirectories
-          # Using perl for cross-platform compatibility (available on GitHub Actions runners)
-          perl -i -pe 's|href="\./favicon|href="/Website/favicon|g' dist/404.html
-          perl -i -pe 's|href="\./favicon|href="/Website/favicon|g' dist/index.html
+          # Using sed for cross-platform compatibility (GitHub Actions uses GNU sed)
+          sed -i 's|href="\./favicon|href="/Website/favicon|g' dist/index.html
+          sed -i 's|href="\./favicon|href="/Website/favicon|g' dist/404.html
+          # Verify the fix was applied
+          echo "Verifying favicon paths:"
+          grep -E 'href=.*favicon' dist/index.html || echo "Warning: No favicon found in index.html"
+          grep -E 'href=.*favicon' dist/404.html || echo "Warning: No favicon found in 404.html"
+          echo "Deployment files prepared:"
+          ls -la dist/ | grep -E "(index|404|nojekyll|favicon)"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
