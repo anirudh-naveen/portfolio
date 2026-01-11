@@ -26,11 +26,14 @@ if command -v sed >/dev/null 2>&1; then
   echo "Fixed favicon paths"
 fi
 
+echo "Removing old git repository if it exists..."
+rm -rf .git
+
 echo "Initializing git repository..."
 git init
 git checkout -b gh-pages
 git add -A
-git commit -m 'deploy'
+git commit -m 'deploy' || (echo "Warning: Nothing to commit (files unchanged)" && git commit --allow-empty -m 'deploy')
 
 echo "Pushing to gh-pages branch..."
 git remote add origin git@github.com:anirudh-naveen/Website.git || true
