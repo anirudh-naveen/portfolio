@@ -21,6 +21,7 @@ import activeKnockoutImg from '@/assets/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/TravelPlanner.png'
 import everythingMazesImg from '@/assets/EverythingMazes.png'
 import findAnimationImg from '@/assets/FindAnimation.png'
+import fakeNewsImg from '@/assets/FakeNewsDetector.png'
 
 const projects = [
   {
@@ -30,7 +31,14 @@ const projects = [
     image: findAnimationImg,
   },
   {
-    title: 'Travel Planner App',
+    title: 'Fake News Detector',
+    description:
+      'Deep Learning model that is trained to detect fake news with a certain confidence level.',
+    link: 'https://github.com/anirudh-naveen/fake-news-detector/blob/main/README.md',
+    image: fakeNewsImg,
+  },
+  {
+    title: 'Travel Planner',
     description: 'Android app to share trip itineraries and experiences using a Firebase database.',
     link: 'https://github.com/anirudh-naveen/Travel-Planner?tab=readme-ov-file',
     image: travelPlannerImg,
