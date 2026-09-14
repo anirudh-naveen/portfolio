@@ -9,7 +9,12 @@
         Hi. <br />
         I'm Anirudh Naveen.
       </h1>
-      <h2 class="title">Software & Data Engineer</h2>
+      <h2 class="title">Software Engineer</h2>
+      <ul class="concentrations">
+        <li>Artificial Intelligence</li>
+        <li>Cybersecurity</li>
+        <li>Full-Stack</li>
+      </ul>
       <p class="description">
         I’m a creator who loves turning ideas into something real, whether it’s through design,
         code, or storytelling. <br />
@@ -91,7 +96,7 @@
         <div class="languages-card">JavaScript</div>
         <div class="languages-card">TypeScript</div>
         <div class="languages-card">SQL</div>
-        <div class="languages-card">Assembly</div>
+        <div class="languages-card">Golang</div>
       </div>
     </div>
   </section>
@@ -141,8 +146,28 @@ import Orb from '@/bits/TheOrb.vue'
 .title {
   font-size: 1.6rem;
   color: #b6b49f;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   letter-spacing: 1px;
+}
+
+.concentrations {
+  display: inline-block;
+  text-align: left;
+  list-style-type: disc;
+  margin: 0 auto 2rem;
+  padding-left: 1.4rem;
+  color: #d4af37;
+}
+
+.concentrations li {
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.concentrations li::marker {
+  color: #d4af37;
 }
 
 .description {
