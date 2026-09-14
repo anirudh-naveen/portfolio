@@ -4,8 +4,7 @@
       <p class="kicker">UPLINK // DIRECT</p>
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
-        Feel free to shoot me a message! <br />
-        I'll respond as soon as I can.
+        Insert encrypted message. Attempts to communicate will be acknowledged.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
@@ -55,7 +54,6 @@ function handleSubmit() {
 <style scoped>
 .contact {
   --accent: #e879f9;
-  --accent-2: #c084fc;
   --glow: rgba(232, 121, 249, 0.42);
   input::placeholder,
   textarea::placeholder {
@@ -83,7 +81,14 @@ function handleSubmit() {
   position: absolute;
   inset: 4.8rem 1rem 1.2rem;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
   z-index: 0;
 }
 
@@ -100,7 +105,7 @@ function handleSubmit() {
 
 .kicker {
   margin: 0 0 0.5rem;
-  color: var(--accent);
+  color: var(--accent-2);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.38em;
@@ -117,7 +122,7 @@ function handleSubmit() {
 }
 
 .contact-subtitle {
-  color: var(--text-muted);
+  color: var(--accent-2);
   margin-bottom: 2rem;
   font-size: 1.1rem;
 }
@@ -157,7 +162,14 @@ textarea:focus {
   font-weight: 600;
   border: 1px solid var(--accent);
   cursor: pointer;
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  clip-path: polygon(
+    10px 0,
+    100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%,
+    0 10px
+  );
   transition: all 0.2s ease;
 }
 

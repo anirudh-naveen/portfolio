@@ -4,45 +4,46 @@
     <div class="skills-container">
       <p class="kicker">CYBERWARE // INSTALLED</p>
       <h2 class="skills-title">Skills</h2>
+      <h3 class="technologies-title">Technologies</h3>
       <div class="skills-grid">
         <div class="skill-card">
-          <img src="@/assets/MongoDB.png" alt="MongoDB" />
+          <img src="@/assets/technologies/MongoDB.png" alt="MongoDB" />
           <p>MongoDB</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Express.svg" alt="Express.js" />
+          <img src="@/assets/technologies/Express.svg" alt="Express.js" />
           <p>Express.js</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Vue.png" alt="Vue.js" />
+          <img src="@/assets/technologies/Vue.png" alt="Vue.js" />
           <p>Vue.js</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Node.png" alt="Node.js" />
+          <img src="@/assets/technologies/Node.png" alt="Node.js" />
           <p>Node.js</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Git.png" alt="Git" />
+          <img src="@/assets/technologies/Git.png" alt="Git" />
           <p>Git</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Firebase.png" alt="Firebase" />
+          <img src="@/assets/technologies/Firebase.png" alt="Firebase" />
           <p>Firebase</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Docker.png" alt="Docker" />
+          <img src="@/assets/technologies/Docker.png" alt="Docker" />
           <p>Docker</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/AndroidStudio.png" alt="Android Studio" />
+          <img src="@/assets/technologies/AndroidStudio.png" alt="Android Studio" />
           <p>Android Studio</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Unity.png" alt="Unity" />
+          <img src="@/assets/technologies/Unity.png" alt="Unity" />
           <p>Unity</p>
         </div>
         <div class="skill-card">
-          <img src="@/assets/Blender.png" alt="Blender" />
+          <img src="@/assets/technologies/Blender.png" alt="Blender" />
           <p>Blender</p>
         </div>
       </div>
@@ -67,7 +68,6 @@
 <style scoped>
 .skills {
   --accent: #ff3b4e;
-  --accent-2: #5eead4;
   --glow: rgba(255, 59, 78, 0.42);
   position: relative;
   background: radial-gradient(ellipse at top, #2a1018 0%, #0a1220 52%, #070b14 100%);
@@ -143,7 +143,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent-2);
 }
 
 .skill-card img {
@@ -161,6 +161,15 @@
 
 .skill-card:hover p {
   color: var(--accent);
+}
+
+.technologies-title {
+  font-size: 1.5rem;
+  margin: 0 0 1.4rem;
+  color: var(--accent-2);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .languages-title {
@@ -188,7 +197,7 @@
   font-size: 0.9rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--accent-2);
   transition: all 0.2s ease;
 }
 

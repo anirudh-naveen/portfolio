@@ -14,6 +14,13 @@
           >Home</a
         >
         <a
+          href="#experience"
+          class="nav-link"
+          :class="{ active: activeSection === 'experience' }"
+          @click.prevent="emit('navigate', '/experience')"
+          >Experience</a
+        >
+        <a
           href="#skills"
           class="nav-link"
           :class="{ active: activeSection === 'skills' }"
@@ -41,7 +48,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  activeSection: 'home' | 'skills' | 'projects' | 'contact'
+  activeSection: 'home' | 'experience' | 'skills' | 'projects' | 'contact'
 }>()
 
 const emit = defineEmits<{
@@ -99,8 +106,7 @@ const emit = defineEmits<{
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.58rem;
   letter-spacing: 0.32em;
-  color: var(--text-dim);
-  margin-bottom: 0.15rem;
+  color: var(--accent-2);
 }
 
 .links {

@@ -71,11 +71,11 @@ function rand(min: number, max: number) {
 }
 
 onMounted(() => {
-  snippets.value = Array.from({ length: 32 }, (_, id) => ({
+  snippets.value = Array.from({ length: 96 }, (_, id) => ({
     id,
     text: fragments[id % fragments.length] ?? '',
     x: rand(1, 90),
-    y: rand(3, 94),
+    y: rand(1, 98),
     rotate: rand(-8, 8),
     size: rand(10, 13),
     delay: rand(0, 8),
@@ -85,24 +85,25 @@ onMounted(() => {
 
 <style scoped>
 .net-layer {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 6;
   pointer-events: none;
   overflow: hidden;
   mix-blend-mode: screen;
   opacity: 0.2;
-  transition: opacity 0.25s ease;
 }
 
 .net-grid {
   position: absolute;
-  inset: -1px;
+  inset: 0;
   background-image:
     linear-gradient(color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1px);
   background-size: 52px 52px;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 86%);
 }
 
 .net-snippet {

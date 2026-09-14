@@ -12,6 +12,7 @@
     <AppNavbar :active-section="activeSection" @navigate="navigate" />
 
     <HomeView />
+    <ExperienceView />
     <SkillsView />
     <ProjectsView />
     <ContactView />
@@ -41,14 +42,16 @@ import AppNavbar from '@/components/AppNavbar.vue'
 import GlitchTransition from '@/components/GlitchTransition.vue'
 import NetBackground from '@/components/NetBackground.vue'
 import HomeView from '@/views/HomeView.vue'
+import ExperienceView from '@/views/ExperienceView.vue'
 import SkillsView from '@/views/SkillsView.vue'
 import ProjectsView from '@/views/ProjectsView.vue'
 import ContactView from '@/views/ContactView.vue'
 
-type SectionId = 'home' | 'skills' | 'projects' | 'contact'
+type SectionId = 'home' | 'experience' | 'skills' | 'projects' | 'contact'
 
 const sections = [
   { id: 'home', path: '/', label: 'Home' },
+  { id: 'experience', path: '/experience', label: 'Experience' },
   { id: 'skills', path: '/skills', label: 'Skills' },
   { id: 'projects', path: '/projects', label: 'Projects' },
   { id: 'contact', path: '/contact', label: 'Contact' },
@@ -60,7 +63,7 @@ const activeSection = ref<SectionId>('home')
 const glitching = ref(false)
 const scrollFlicker = ref(false)
 
-const spyIds = ['home', 'skills', 'projects', 'contact'] as const
+const spyIds = ['home', 'experience', 'skills', 'projects', 'contact'] as const
 
 let lockSpy = false
 let unlockTimer: number | null = null
@@ -74,6 +77,7 @@ function prefersReducedMotion() {
 }
 
 function sectionFromPath(path: string): SectionId {
+  if (path === '/experience') return 'experience'
   if (path === '/skills') return 'skills'
   if (path === '/projects') return 'projects'
   if (path === '/contact') return 'contact'
@@ -81,7 +85,7 @@ function sectionFromPath(path: string): SectionId {
 }
 
 function navIdFromElement(id: string): SectionId {
-  if (id === 'skills' || id === 'projects' || id === 'contact') return id
+  if (id === 'experience' || id === 'skills' || id === 'projects' || id === 'contact') return id
   return 'home'
 }
 
@@ -201,8 +205,12 @@ html {
 }
 
 html,
-body,
+body {
+  margin: 0;
+}
+
 #app {
+  position: relative;
   margin: 0;
 }
 
@@ -213,7 +221,7 @@ body,
   --bg-card: #10182a;
   --bg-card-2: #0a1220;
   --accent: #d4ff3f;
-  --accent-2: #9fd400;
+  --accent-2: #5eead4;
   --text: #e7f0dc;
   --text-muted: #93a39a;
   --text-dim: #6d7c78;
@@ -223,25 +231,26 @@ body,
 
 #app[data-theme='home'] {
   --accent: #d4ff3f;
-  --accent-2: #b6e000;
   --glow: rgba(212, 255, 63, 0.42);
+}
+
+#app[data-theme='experience'] {
+  --accent: #ffb12a;
+  --glow: rgba(255, 177, 42, 0.42);
 }
 
 #app[data-theme='skills'] {
   --accent: #ff3b4e;
-  --accent-2: #5eead4;
   --glow: rgba(255, 59, 78, 0.42);
 }
 
 #app[data-theme='projects'] {
   --accent: #5ec8ff;
-  --accent-2: #9cdcff;
   --glow: rgba(94, 200, 255, 0.42);
 }
 
 #app[data-theme='contact'] {
   --accent: #e879f9;
-  --accent-2: #c084fc;
   --glow: rgba(232, 121, 249, 0.42);
 }
 

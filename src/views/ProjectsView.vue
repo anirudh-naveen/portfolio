@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts" setup>
-import activeKnockoutImg from '@/assets/ActiveKnockout.png'
-import travelPlannerImg from '@/assets/TravelPlanner.png'
-import everythingMazesImg from '@/assets/EverythingMazes.png'
-import findAnimationImg from '@/assets/FindAnimation.png'
-import fakeNewsImg from '@/assets/FakeNewsDetector.png'
+import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
+import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
+import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
+import findAnimationImg from '@/assets/projects/FindAnimation.png'
+import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
 
 const projects = [
   {
@@ -63,7 +63,6 @@ const projects = [
 <style scoped>
 .projects {
   --accent: #5ec8ff;
-  --accent-2: #9cdcff;
   --glow: rgba(94, 200, 255, 0.42);
   position: relative;
   min-height: 100vh;
@@ -102,7 +101,7 @@ const projects = [
 
 .kicker {
   margin: 0 0 0.5rem;
-  color: var(--accent);
+  color: var(--accent-2);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.38em;
@@ -149,7 +148,7 @@ const projects = [
 }
 
 .project-content p {
-  color: var(--text-muted);
+  color: var(--accent-2);
   font-size: 1rem;
   margin-bottom: 0.9rem;
 }
