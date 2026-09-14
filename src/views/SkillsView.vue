@@ -1,7 +1,7 @@
 <template>
   <section id="skills" class="skills">
     <div class="hud-frame"></div>
-    <ScrollCue direction="up" to="/projects" />
+    <SectionCues up-to="/projects" down-to="/contact" />
     <div class="skills-container">
       <p class="kicker">CYBERWARE // INSTALLED</p>
       <h2 class="skills-title">Skills</h2>
@@ -33,12 +33,11 @@
         </div>
       </div>
     </div>
-    <ScrollCue to="/contact" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import ScrollCue from '@/components/ScrollCue.vue'
+import SectionCues from '@/components/SectionCues.vue'
 import androidStudio from '@/assets/technologies/AndroidStudio.png'
 import blender from '@/assets/technologies/Blender.png'
 import docker from '@/assets/technologies/Docker.png'
@@ -88,11 +87,11 @@ const languages = [
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6rem 0 5rem;
+  padding: 8.6rem 0 6.2rem;
   color: var(--text);
   scroll-snap-align: start;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hud-frame {

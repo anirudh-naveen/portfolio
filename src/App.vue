@@ -203,7 +203,6 @@ onUnmounted(() => {
 <style>
 html {
   scroll-behavior: smooth;
-  scroll-snap-type: y proximity;
 }
 
 html,
@@ -311,17 +310,13 @@ body {
     filter: none;
   }
   40% {
-    filter: contrast(1.12) saturate(1.15);
+    filter: contrast(1.12) saturate(1.18);
   }
-  55% {
-    transform: translateX(2px);
-  }
-  75% {
-    transform: translateX(-2px);
+  70% {
+    filter: contrast(1.2) saturate(1.1) hue-rotate(-8deg);
   }
   100% {
     filter: none;
-    transform: none;
   }
 }
 
@@ -365,7 +360,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
 
   .scanlines,

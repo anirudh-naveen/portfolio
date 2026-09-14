@@ -28,13 +28,14 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
 <style scoped>
 .scroll-cue {
   position: absolute;
-  bottom: 1.75rem;
+  bottom: 0.45rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   width: 22px;
   height: 38px;
   border: 1px solid var(--accent);
+  background: var(--bg-void);
   clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
   display: flex;
   justify-content: center;
@@ -43,12 +44,8 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
 }
 
 .scroll-cue.up {
-  position: relative;
-  top: auto;
+  top: 0.45rem;
   bottom: auto;
-  left: auto;
-  transform: none;
-  margin: 0 auto 1.15rem;
   padding-top: 0;
   padding-bottom: 8px;
   align-items: flex-end;

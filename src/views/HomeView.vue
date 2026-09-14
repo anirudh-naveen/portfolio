@@ -1,6 +1,7 @@
 <template>
   <section id="home" class="landing">
     <div class="hud-frame"></div>
+    <SectionCues down-to="/experience" />
     <div class="container">
       <p class="page-kicker">IDENTIFICATION // CONFIDENTIAL</p>
       <h2 class="home-title">Bio</h2>
@@ -30,19 +31,19 @@
               <dd>Anirudh Naveen</dd>
             </div>
             <div class="id-row">
-              <dt>DOB</dt>
+              <dt>Birthdate</dt>
               <dd>02/08/2006</dd>
             </div>
             <div class="id-row">
-              <dt>Last Seen</dt>
-              <dd>Austin, TX</dd>
+              <dt>Residence</dt>
+              <dd>Atlanta, GA</dd>
             </div>
             <div class="id-row">
               <dt>Occupation</dt>
               <dd>Software Engineer</dd>
             </div>
             <div class="id-row concentrations-row">
-              <dt>Concentrations</dt>
+              <dt>Specialization</dt>
               <dd>
                 <ul class="concentrations">
                   <li>Artificial Intelligence</li>
@@ -50,10 +51,6 @@
                   <li>Full-Stack</li>
                 </ul>
               </dd>
-            </div>
-            <div class="id-row">
-              <dt>Bounty</dt>
-              <dd>$120,000</dd>
             </div>
           </dl>
         </div>
@@ -74,12 +71,11 @@
         </div>
       </article>
     </div>
-    <ScrollCue to="/experience" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import ScrollCue from '@/components/ScrollCue.vue'
+import SectionCues from '@/components/SectionCues.vue'
 </script>
 
 <style scoped>
@@ -92,12 +88,11 @@ import ScrollCue from '@/components/ScrollCue.vue'
   align-items: center;
   justify-content: center;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   background: radial-gradient(ellipse at top left, #1c2a12 0%, #0a1220 46%, #070b14 100%);
   font-family: 'Rajdhani', sans-serif;
-  padding: 6rem 1rem 5rem;
+  padding: 6rem 1rem 6.2rem;
   color: var(--text);
 }
 

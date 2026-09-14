@@ -1,55 +1,68 @@
 <template>
   <section id="experience" class="experience">
     <div class="hud-frame"></div>
-    <ScrollCue direction="up" to="/" />
+    <SectionCues up-to="/" down-to="/projects" />
     <div class="experience-container">
       <p class="kicker">RECORD // EMPLOYMENT</p>
       <h2 class="experience-title">Experience</h2>
 
       <ol class="timeline">
         <li v-for="item in entries" :key="item.org" class="timeline-item">
-          <div class="logo-slot" aria-hidden="true">
-            <span>LOGO</span>
+          <div class="logo-slot">
+            <img :src="item.logo" :alt="item.org" />
           </div>
           <div class="timeline-card">
             <p class="timeline-dates">{{ item.dates }}</p>
             <h3 class="timeline-org">{{ item.org }}</h3>
             <p class="timeline-role">{{ item.role }}</p>
-            <p class="timeline-desc">{{ item.description }}</p>
+            <p v-if="item.description" class="timeline-desc">{{ item.description }}</p>
+            <div v-else class="timeline-desc redacted" aria-label="Redacted">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </div>
         </li>
       </ol>
     </div>
-    <ScrollCue to="/projects" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import ScrollCue from '@/components/ScrollCue.vue'
+import SectionCues from '@/components/SectionCues.vue'
+import ibmLogo from '@/assets/experience/IBM.png'
+import landisGyrLogo from '@/assets/experience/Landis+Gyr.png'
+import arbysLogo from '@/assets/experience/Arbys.png'
+import taekwondoLogo from '@/assets/experience/Taekwondo.png'
+
 const entries = [
   {
     org: 'IBM',
     role: 'Software Engineer Intern',
     dates: 'AUG 2026 — DEC 2026',
-    description: 'CONFIDENTIAL',
+    description: 'Worked on Vault Radar with the HashiCorp team.',
+    logo: ibmLogo,
   },
   {
     org: 'Landis+Gyr',
     role: 'Software Engineer Intern',
     dates: 'MAY 2026 — AUG 2026',
-    description: 'CONFIDENTIAL',
+    description: 'Worked on Emerge with the software developer team.',
+    logo: landisGyrLogo,
   },
   {
     org: "Arby's",
     role: 'Line Cook',
     dates: 'MAY 2023 — AUG 2024',
-    description: 'CONFIDENTIAL',
+    description: '',
+    logo: arbysLogo,
   },
   {
     org: 'World Champion Taekwondo',
     role: 'Black Belt II',
     dates: 'AUG 2016 — MAY 2021',
-    description: 'CONFIDENTIAL',
+    description: '',
+    logo: taekwondoLogo,
   },
 ]
 </script>
@@ -61,11 +74,11 @@ const entries = [
   position: relative;
   min-height: 100vh;
   background: radial-gradient(ellipse at top, #2a1c0c 0%, #0a1220 52%, #070b14 100%);
-  padding: 6rem 1rem 5rem;
+  padding: 8.6rem 1rem 6.2rem;
   color: var(--text);
   scroll-snap-align: start;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hud-frame {
@@ -145,18 +158,20 @@ const entries = [
 .logo-slot {
   width: 72px;
   height: 72px;
-  border: 1px dashed color-mix(in srgb, var(--accent-2) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   background: rgba(10, 18, 32, 0.72);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding: 0.35rem;
+  box-sizing: border-box;
 }
 
-.logo-slot span {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.16em;
-  color: var(--accent-2);
+.logo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .timeline-card {
@@ -205,11 +220,38 @@ const entries = [
   min-height: 2.4rem;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.78rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
   color: var(--accent-2);
   border: 1px dashed color-mix(in srgb, var(--accent-2) 35%, transparent);
   padding: 0.55rem 0.7rem;
+}
+
+.timeline-desc.redacted {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.38rem;
+  text-transform: none;
+}
+
+.timeline-desc.redacted span {
+  display: block;
+  height: 0.72rem;
+  background: #05070c;
+  box-shadow: 0 0 0 1px rgba(255, 177, 42, 0.1);
+}
+
+.timeline-desc.redacted span:nth-child(1) {
+  width: 92%;
+}
+
+.timeline-desc.redacted span:nth-child(2) {
+  width: 74%;
+}
+
+.timeline-desc.redacted span:nth-child(3) {
+  width: 58%;
 }
 
 @media (max-width: 768px) {

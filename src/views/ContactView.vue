@@ -1,5 +1,6 @@
 <template>
   <section id="contact" class="contact">
+    <SectionCues up-to="/skills" />
     <div class="contact-container">
       <p class="kicker">UPLINK // DIRECT</p>
       <h2 class="contact-title">Contact</h2>
@@ -20,6 +21,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import emailjs from 'emailjs-com'
+import SectionCues from '@/components/SectionCues.vue'
 
 const form = ref({
   name: '',
@@ -66,7 +68,7 @@ function handleSubmit() {
   }
   position: relative;
   min-height: 100vh;
-  padding: 6rem 1rem;
+  padding: 8.6rem 1rem 5rem;
   overflow: hidden;
   background: radial-gradient(ellipse at center, #2a1638 0%, #0a1220 50%, #070b14 100%);
   display: flex;
@@ -92,12 +94,9 @@ function handleSubmit() {
   z-index: 0;
 }
 
-.contact > * {
+.contact-container {
   position: relative;
   z-index: 1;
-}
-
-.contact-container {
   max-width: 600px;
   width: 100%;
   text-align: center;
