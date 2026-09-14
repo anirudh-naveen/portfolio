@@ -13,8 +13,8 @@ const router = createRouter({
   routes: [
     { path: '/', name: 'Home', component: Page },
     { path: '/experience', name: 'Experience', component: Page },
-    { path: '/skills', name: 'Skills', component: Page },
     { path: '/projects', name: 'Projects', component: Page },
+    { path: '/skills', name: 'Skills', component: Page },
     { path: '/contact', name: 'Contact', component: Page },
   ],
   scrollBehavior() {

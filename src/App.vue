@@ -1,21 +1,23 @@
 <template>
   <div
     id="app"
-    :class="{ 'is-glitching': glitching, 'is-scroll-glitch': scrollFlicker }"
+    :class="{ 'is-glitching': glitching }"
     :data-theme="activeSection"
   >
-    <NetBackground />
-    <AmbientGlitch :burst="scrollFlicker" />
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="grain" aria-hidden="true"></div>
-
     <AppNavbar :active-section="activeSection" @navigate="navigate" />
 
-    <HomeView />
-    <ExperienceView />
-    <SkillsView />
-    <ProjectsView />
-    <ContactView />
+    <div class="page-stage" :class="{ 'is-scroll-glitch': scrollFlicker }">
+      <NetBackground />
+      <AmbientGlitch :burst="scrollFlicker" />
+      <div class="scanlines" aria-hidden="true"></div>
+      <div class="grain" aria-hidden="true"></div>
+
+      <HomeView />
+      <ExperienceView />
+      <ProjectsView />
+      <SkillsView />
+      <ContactView />
+    </div>
 
     <nav class="section-dots" aria-label="Page sections">
       <button
@@ -50,10 +52,10 @@ import ContactView from '@/views/ContactView.vue'
 type SectionId = 'home' | 'experience' | 'skills' | 'projects' | 'contact'
 
 const sections = [
-  { id: 'home', path: '/', label: 'Home' },
+  { id: 'home', path: '/', label: 'Bio' },
   { id: 'experience', path: '/experience', label: 'Experience' },
-  { id: 'skills', path: '/skills', label: 'Skills' },
   { id: 'projects', path: '/projects', label: 'Projects' },
+  { id: 'skills', path: '/skills', label: 'Skills' },
   { id: 'contact', path: '/contact', label: 'Contact' },
 ] as const
 
@@ -63,7 +65,7 @@ const activeSection = ref<SectionId>('home')
 const glitching = ref(false)
 const scrollFlicker = ref(false)
 
-const spyIds = ['home', 'experience', 'skills', 'projects', 'contact'] as const
+const spyIds = ['home', 'experience', 'projects', 'skills', 'contact'] as const
 
 let lockSpy = false
 let unlockTimer: number | null = null
@@ -286,17 +288,21 @@ body {
   mix-blend-mode: overlay;
 }
 
+.page-stage {
+  position: relative;
+}
+
 #app.is-glitching .scanlines,
-#app.is-scroll-glitch .scanlines {
+.page-stage.is-scroll-glitch .scanlines {
   opacity: 0.7;
 }
 
 #app.is-glitching .grain,
-#app.is-scroll-glitch .grain {
+.page-stage.is-scroll-glitch .grain {
   opacity: 0.14;
 }
 
-#app.is-scroll-glitch {
+.page-stage.is-scroll-glitch {
   animation: pageTear 0.16s steps(2, end);
 }
 
@@ -364,7 +370,7 @@ body {
 
   .scanlines,
   .grain,
-  #app.is-scroll-glitch {
+  .page-stage.is-scroll-glitch {
     animation: none;
   }
 }

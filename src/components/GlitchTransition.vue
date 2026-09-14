@@ -94,8 +94,11 @@ onUnmounted(stop)
 <style scoped>
 .glitch-overlay {
   position: fixed;
-  inset: 0;
-  z-index: 2000;
+  top: 4.75rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
   pointer-events: none;
   opacity: 0;
   visibility: hidden;

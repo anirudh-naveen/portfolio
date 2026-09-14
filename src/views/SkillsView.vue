@@ -1,6 +1,7 @@
 <template>
   <section id="skills" class="skills">
     <div class="hud-frame"></div>
+    <ScrollCue direction="up" to="/projects" />
     <div class="skills-container">
       <p class="kicker">CYBERWARE // INSTALLED</p>
       <h2 class="skills-title">Skills</h2>
@@ -62,8 +63,13 @@
         <div class="languages-card">Golang</div>
       </div>
     </div>
+    <ScrollCue to="/contact" />
   </section>
 </template>
+
+<script lang="ts" setup>
+import ScrollCue from '@/components/ScrollCue.vue'
+</script>
 
 <style scoped>
 .skills {
@@ -73,8 +79,9 @@
   background: radial-gradient(ellipse at top, #2a1018 0%, #0a1220 52%, #070b14 100%);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 6rem 1rem;
+  padding: 6rem 1rem 5rem;
   color: var(--text);
   scroll-snap-align: start;
   box-sizing: border-box;

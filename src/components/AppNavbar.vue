@@ -11,7 +11,7 @@
           class="nav-link"
           :class="{ active: activeSection === 'home' }"
           @click.prevent="emit('navigate', '/')"
-          >Home</a
+          >Bio</a
         >
         <a
           href="#experience"
@@ -21,18 +21,18 @@
           >Experience</a
         >
         <a
-          href="#skills"
-          class="nav-link"
-          :class="{ active: activeSection === 'skills' }"
-          @click.prevent="emit('navigate', '/skills')"
-          >Skills</a
-        >
-        <a
           href="#projects"
           class="nav-link"
           :class="{ active: activeSection === 'projects' }"
           @click.prevent="emit('navigate', '/projects')"
           >Projects</a
+        >
+        <a
+          href="#skills"
+          class="nav-link"
+          :class="{ active: activeSection === 'skills' }"
+          @click.prevent="emit('navigate', '/skills')"
+          >Skills</a
         >
         <a
           href="#contact"
@@ -58,7 +58,7 @@ const emit = defineEmits<{
 
 <style scoped>
 .navbar {
-  background: linear-gradient(180deg, rgba(7, 11, 20, 0.94), rgba(10, 18, 32, 0.78));
+  background: linear-gradient(180deg, #070b14 0%, rgba(10, 18, 32, 0.97) 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
   padding: 0.7rem 1.5rem 0.55rem;
@@ -66,7 +66,7 @@ const emit = defineEmits<{
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 3000;
 }
 
 .navbar::after {

@@ -137,7 +137,7 @@ onMounted(() => {
 }
 
 :global(#app.is-glitching) .net-layer,
-:global(#app.is-scroll-glitch) .net-layer {
+:global(.page-stage.is-scroll-glitch) .net-layer {
   opacity: 0.42;
 }
 

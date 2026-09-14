@@ -33,6 +33,15 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Verify built HTML does not point at source files
+        run: |
+          if grep -q '/src/main.ts' dist/index.html; then
+            echo 'dist/index.html still loads /src/main.ts; refusing to publish source HTML'
+            cat dist/index.html
+            exit 1
+          fi
+          grep -q '/assets/' dist/index.html
+
       - name: Add SPA fallback and disable Jekyll
         run: |
           cd dist

@@ -1,5 +1,6 @@
 <template>
   <section id="projects" class="projects">
+    <ScrollCue direction="up" to="/experience" />
     <div class="projects-container">
       <p class="kicker">UPLINK // PUBLIC FEED</p>
       <h2 class="projects-title">Projects</h2>
@@ -62,11 +63,13 @@
         </article>
       </div>
     </div>
+    <ScrollCue to="/skills" />
   </section>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
+import ScrollCue from '@/components/ScrollCue.vue'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
@@ -84,7 +87,7 @@ const projects = [
     slug: 'find-animation',
     title: 'Find Animation',
     description: 'MEVN stack web app to search, view, and track animation movies and series.',
-    link: 'https://github.com/anirudh-naveen/Find-Animation/blob/main/README.md',
+    link: 'find-animation.vercel.app',
     image: findAnimationImg,
     author: maji,
     tags: [
@@ -242,7 +245,7 @@ onMounted(async () => {
   --glow: rgba(94, 200, 255, 0.42);
   position: relative;
   min-height: 100vh;
-  padding: 6rem 1rem 4rem;
+  padding: 6rem 1rem 5rem;
   overflow: hidden;
   background: radial-gradient(ellipse at center, #123048 0%, #0a1220 48%, #070b14 100%);
   scroll-snap-align: start;
