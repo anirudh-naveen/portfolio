@@ -1,314 +1,475 @@
 <template>
-  <section class="landing">
+  <section id="home" class="landing">
+    <div class="hud-frame"></div>
     <div class="container">
-      <div class="orb-background">
-        <Orb :hoverIntensity="0.5" :rotateOnHover="true" :hue="90" :forceHoverState="true" />
-      </div>
+      <p class="page-kicker">IDENTIFICATION // CONFIDENTIAL</p>
+      <h2 class="home-title">Bio</h2>
+      <article class="id-card">
+        <header class="id-header">
+          <p class="kicker">NET // CITIZEN FILE</p>
+          <p class="serial">ID-AN-020806 // STATUS: CLEAR</p>
+        </header>
 
-      <h1 class="name">
-        Hi. <br />
-        I'm Anirudh Naveen.
-      </h1>
-      <h2 class="title">Software & Data Engineer</h2>
-      <p class="description">
-        I’m a creator who loves turning ideas into something real, whether it’s through design,
-        code, or storytelling. <br />
-        I thrive on blending creativity with logic to build projects that are both imaginative and
-        meaningful.
-      </p>
-      <div class="links">
-        <a href="https://github.com/anirudh-naveen" target="_blank" class="link-button">GitHub</a>
-        <a href="https://www.linkedin.com/in/anirudhnaveen/" target="_blank" class="link-button"
-          >LinkedIn</a
-        >
-        <a href="https://www.instagram.com/anirudhnav/" target="_blank" class="link-button"
-          >Instagram</a
-        >
-      </div>
-    </div>
-  </section>
+        <div class="id-body">
+          <div class="id-photo" aria-hidden="true">
+            <div class="photo-silhouette"></div>
+            <div class="redact-bars">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <p class="redact-stamp">REDACTED</p>
+            <p class="photo-label">IMG // CLASSIFIED</p>
+          </div>
 
-  <!-- Skills Section -->
-  <section class="skills">
-    <div class="skills-container">
-      <h2 class="skills-title">Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <img src="@/assets/MongoDB.png" alt="MongoDB" />
-          <p>MongoDB</p>
+          <dl class="id-fields">
+            <div class="id-row">
+              <dt>Name</dt>
+              <dd>Anirudh Naveen</dd>
+            </div>
+            <div class="id-row">
+              <dt>DOB</dt>
+              <dd>02/08/2006</dd>
+            </div>
+            <div class="id-row">
+              <dt>Occupation</dt>
+              <dd>Software Engineer</dd>
+            </div>
+            <div class="id-row concentrations-row">
+              <dt>Concentrations</dt>
+              <dd>
+                <ul class="concentrations">
+                  <li>Artificial Intelligence</li>
+                  <li>Cybersecurity</li>
+                  <li>Full-Stack</li>
+                </ul>
+              </dd>
+            </div>
+            <div class="id-row">
+              <dt>Bounty</dt>
+              <dd>$120,000</dd>
+            </div>
+          </dl>
         </div>
-        <div class="skill-card">
-          <img src="@/assets/Express.svg" alt="Express.js" />
-          <p>Express.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Vue.png" alt="Vue.js" />
-          <p>Vue.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Node.png" alt="Node.js" />
-          <p>Node.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Git.png" alt="Git" />
-          <p>Git</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Firebase.png" alt="Firebase" />
-          <p>Firebase</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Docker.png" alt="Docker" />
-          <p>Docker</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/AndroidStudio.png" alt="Android Studio" />
-          <p>Android Studio</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Unity.png" alt="Unity" />
-          <p>Unity</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/Blender.png" alt="Blender" />
-          <p>Blender</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Languages Section -->
-  <section class="languages">
-    <div class="languages-container">
-      <h2 class="languages-title">Languages</h2>
-      <div class="languages-grid">
-        <div class="languages-card">C</div>
-        <div class="languages-card">Java</div>
-        <div class="languages-card">Python</div>
-        <div class="languages-card">C++</div>
-        <div class="languages-card">C#</div>
-        <div class="languages-card">HTML</div>
-        <div class="languages-card">JavaScript</div>
-        <div class="languages-card">TypeScript</div>
-        <div class="languages-card">SQL</div>
-        <div class="languages-card">Assembly</div>
-      </div>
+        <div class="links">
+          <a href="https://github.com/anirudh-naveen" target="_blank" class="link-button">
+            <img src="@/assets/socialmedia/github.png" alt="" class="link-icon" />
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/anirudhnaveen/" target="_blank" class="link-button">
+            <img src="@/assets/socialmedia/linkedin.png" alt="" class="link-icon" />
+            LinkedIn
+          </a>
+          <a href="https://www.instagram.com/anirudhnav/" target="_blank" class="link-button">
+            <img src="@/assets/socialmedia/instagram.png" alt="" class="link-icon" />
+            Instagram
+          </a>
+        </div>
+      </article>
     </div>
+    <a
+      href="#experience"
+      class="scroll-cue"
+      aria-label="Scroll to next section"
+      @click.prevent="navigateTo?.('/experience')"
+    >
+      <span></span>
+    </a>
   </section>
 </template>
 
 <script lang="ts" setup>
-import Orb from '@/bits/TheOrb.vue'
+import { inject } from 'vue'
+
+const navigateTo = inject<(path: string) => void>('navigateTo')
 </script>
 
 <style scoped>
-/* --- Main Section --- */
 .landing {
+  --accent: #d4ff3f;
+  --glow: rgba(212, 255, 63, 0.42);
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    url('@/assets/GoldenLines.png'), radial-gradient(circle at top left, #183a17, #0e1b12);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  font-family:
-    'Poppins',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  padding: 3rem 1rem;
-  color: #eae8e1;
-  animation: fadeIn 1.2s ease-in-out;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: radial-gradient(ellipse at top left, #1c2a12 0%, #0a1220 46%, #070b14 100%);
+  font-family: 'Rajdhani', sans-serif;
+  padding: 6rem 1rem 5rem;
+  color: var(--text);
+}
+
+.page-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--accent-2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.home-title {
+  font-size: 2.6rem;
+  margin: 0 0 2.4rem;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px var(--glow);
+}
+
+.hud-frame {
+  position: absolute;
+  inset: 4.8rem 1rem 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  pointer-events: none;
+  z-index: 0;
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
+}
+
+.hud-frame::before,
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--accent);
+}
+
+.hud-frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.hud-frame::after {
+  right: -1px;
+  bottom: -1px;
+  border-left: 0;
+  border-top: 0;
 }
 
 .container {
-  text-align: center;
-  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 760px;
 }
 
-.name {
-  font-size: 4rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, #d4af37, #6f8a49);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1rem;
+.id-card {
+  text-align: left;
+  background: linear-gradient(180deg, rgba(12, 20, 18, 0.82), rgba(7, 11, 20, 0.9));
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  clip-path: polygon(
+    16px 0,
+    100% 0,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    0 100%,
+    0 16px
+  );
+  padding: 1.4rem 1.5rem 1.35rem;
+  box-shadow: 0 0 28px rgba(0, 0, 0, 0.35);
 }
 
-.title {
-  font-size: 1.6rem;
-  color: #b6b49f;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
+.id-body {
+  display: grid;
+  grid-template-columns: 148px 1fr;
+  gap: 1.15rem;
+  margin-bottom: 1.35rem;
+  align-items: stretch;
 }
 
-.description {
-  font-size: 1rem;
-  color: #c9c7b6;
-  line-height: 1.6;
-  margin-bottom: 3rem;
+.id-photo {
+  position: relative;
+  min-height: 176px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(212, 255, 63, 0.04) 0px,
+      rgba(212, 255, 63, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    radial-gradient(circle at 50% 28%, #243040 0%, #070b14 74%);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  overflow: hidden;
+}
+
+.photo-silhouette {
+  position: absolute;
+  inset: 0;
+}
+
+.photo-silhouette::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: 42%;
+  height: 28%;
+  transform: translateX(-50%);
+  background: #2c3948;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.photo-silhouette::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 70%;
+  height: 42%;
+  transform: translateX(-50%);
+  background: #2c3948;
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+  opacity: 0.7;
+}
+
+.redact-bars {
+  position: absolute;
+  inset: 16% 8% 24%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.redact-bars span {
+  display: block;
+  height: 15%;
+  background: #05070c;
+  box-shadow: 0 0 0 1px rgba(212, 255, 63, 0.08);
+}
+
+.redact-stamp {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  z-index: 2;
+  margin: 0;
+  transform: translate(-50%, -50%) rotate(-18deg);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  padding: 0.18rem 0.38rem;
+  background: rgba(7, 11, 20, 0.62);
+  text-shadow: 0 0 10px var(--glow);
+}
+
+.photo-label {
+  position: absolute;
+  left: 0.4rem;
+  right: 0.4rem;
+  bottom: 0.35rem;
+  z-index: 2;
+  margin: 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  color: var(--accent-2);
+}
+
+.id-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  padding-bottom: 0.7rem;
+  margin-bottom: 1.1rem;
+}
+
+.kicker {
+  margin: 0;
+  color: var(--accent-2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.serial {
+  margin: 0;
+  color: var(--accent-2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.id-fields {
+  margin: 0;
+}
+
+.id-row {
+  display: grid;
+  grid-template-columns: 8.2rem 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px dotted color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.id-row dt {
+  margin: 0;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+
+.id-row dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow);
+}
+
+.concentrations-row {
+  align-items: start;
+}
+
+.concentrations-row dt {
+  padding-top: 0.35rem;
+}
+
+.concentrations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.concentrations li {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  padding: 0.32rem 0.55rem;
 }
 
 .links {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  gap: 0.65rem;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  padding-top: 0.15rem;
 }
 
 .link-button {
-  padding: 0.75rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.95rem;
   background: transparent;
-  border: 1px solid #d4af37;
-  border-radius: 30px;
-  color: #d4af37;
+  border: 1px solid var(--accent);
+  color: var(--accent);
   text-decoration: none;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  transition: all 0.2s ease;
+}
+
+.link-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .link-button:hover {
-  background: #d4af37;
-  color: #0e1b12;
-  transform: translateY(-2px);
+  background: var(--accent);
+  color: var(--bg-void);
+  box-shadow: 0 0 18px var(--glow);
 }
 
-/* --- Skills Section --- */
-.skills {
-  background: #0d1912;
-  padding: 6rem 1rem;
-  color: #f4e4c1;
-}
-
-.skills-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.skills-title {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: #d4af37;
-  position: relative;
-}
-
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-  justify-items: center;
-}
-
-.skill-card {
-  background: linear-gradient(145deg, #17391a, #0e1b12);
-  border: 1px solid #264f27;
-  border-radius: 12px;
-  padding: 1.5rem;
+.scroll-cue {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 22px;
+  height: 38px;
+  border: 1px solid var(--accent);
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 140px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(15, 27, 18, 0.5);
+  padding-top: 8px;
+  box-sizing: border-box;
 }
 
-.skill-card img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  filter: brightness(0.9);
-  transition:
-    transform 0.3s ease,
-    filter 0.3s ease;
-  margin-bottom: 0.5rem;
+.scroll-cue span {
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+  animation: cue 1.6s steps(2, end) infinite;
 }
 
-.skill-card span {
-  color: #e2dcb3;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-align: center;
-}
-
-.skill-card:hover {
-  transform: translateY(-5px);
-  border-color: #d4af37;
-  box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
-}
-
-.skill-card:hover img {
-  transform: scale(1.1);
-  filter: brightness(1.2);
-}
-
-/* --- Languages Section --- */
-.languages {
-  background: #09110e;
-  padding: 6rem 1rem;
-  color: #f4e4c1;
-}
-
-.languages-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.languages-title {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: #d4af37;
-  position: relative;
-}
-
-.languages-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-  justify-items: center;
-}
-
-.languages-card {
-  background: linear-gradient(145deg, #17391a, #0e1b12);
-  border: 1px solid #264f27;
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
-  color: #e2dcb3;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(15, 27, 18, 0.5);
-}
-
-.languages-card:hover {
-  transform: translateY(-5px);
-  border-color: #d4af37;
-  box-shadow: 0 8px 16px rgba(212, 175, 55, 0.3);
-}
-
-/* --- Animations --- */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
+@keyframes cue {
+  0% {
     opacity: 1;
     transform: translateY(0);
   }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
 }
 
-/* --- Responsive --- */
 @media (max-width: 768px) {
-  .name {
-    font-size: 2.8rem;
+  .id-body {
+    grid-template-columns: 1fr;
   }
-  .skills-title {
-    font-size: 2rem;
+
+  .id-photo {
+    min-height: 160px;
+    max-width: 180px;
+  }
+
+  .id-row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .id-row dd {
+    font-size: 1.05rem;
+  }
+
+  .hud-frame {
+    inset: 4.4rem 0.6rem 0.8rem;
   }
 }
 </style>

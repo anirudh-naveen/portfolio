@@ -1,10 +1,10 @@
 <template>
-  <section class="contact">
+  <section id="contact" class="contact">
     <div class="contact-container">
+      <p class="kicker">UPLINK // DIRECT</p>
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
-        Feel free to shoot me a message! <br />
-        I'll respond as soon as I can.
+        Insert encrypted message. Attempts to communicate will be acknowledged.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
@@ -53,27 +53,42 @@ function handleSubmit() {
 
 <style scoped>
 .contact {
+  --accent: #e879f9;
+  --glow: rgba(232, 121, 249, 0.42);
   input::placeholder,
   textarea::placeholder {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    color: #b8c5b0;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
     opacity: 1;
   }
   position: relative;
+  min-height: 100vh;
   padding: 6rem 1rem;
-  background: radial-gradient(circle at center, #183a17, #0e1b12);
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #2a1638 0%, #0a1220 50%, #070b14 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  scroll-snap-align: start;
+  box-sizing: border-box;
 }
 
 .contact::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: url('@/assets/GoldenLines.png') center/cover no-repeat;
-  transform: rotate(180deg);
+  inset: 4.8rem 1rem 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
   z-index: 0;
 }
 
@@ -88,54 +103,79 @@ function handleSubmit() {
   text-align: center;
 }
 
+.kicker {
+  margin: 0 0 0.5rem;
+  color: var(--accent-2);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+}
+
 .contact-title {
-  font-size: 2.5rem;
-  color: #d4af37;
-  margin-bottom: 1rem;
+  font-size: 2.6rem;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px var(--glow);
 }
 
 .contact-subtitle {
-  color: #b8c5b0;
-  margin-bottom: 2.5rem;
+  color: var(--accent-2);
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 
 input,
 textarea {
-  padding: 1rem;
-  border-radius: 10px;
-  border: 1px solid #264f27;
-  background: #112015;
-  color: #f4e4c1;
-  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, #1d3344);
+  background: rgba(10, 18, 32, 0.9);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.05rem;
   outline: none;
 }
 
 input:focus,
 textarea:focus {
-  border-color: #d4af37;
-  box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
 }
 
 .send-button {
   padding: 0.9rem;
-  background: #d4af37;
-  color: #0d1912;
+  background: var(--accent);
+  color: var(--bg-void);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   font-weight: 600;
-  border: none;
-  border-radius: 30px;
+  border: 1px solid var(--accent);
   cursor: pointer;
-  transition: all 0.3s ease;
+  clip-path: polygon(
+    10px 0,
+    100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%,
+    0 10px
+  );
+  transition: all 0.2s ease;
 }
 
 .send-button:hover {
-  background: #e1c55f;
-  transform: translateY(-2px);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  box-shadow: 0 0 18px var(--glow);
 }
 </style>
