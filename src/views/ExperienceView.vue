@@ -31,7 +31,7 @@ const entries = [
     description: 'CONFIDENTIAL',
   },
   {
-    org: 'Landis_Gyr',
+    org: 'Landis+Gyr',
     role: 'Software Engineer Intern',
     dates: 'MAY 2026 — AUG 2026',
     description: 'CONFIDENTIAL',
