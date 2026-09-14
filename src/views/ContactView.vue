@@ -1,5 +1,5 @@
 <template>
-  <section class="contact">
+  <section id="contact" class="contact">
     <div class="contact-container">
       <h2 class="contact-title">Contact Me</h2>
       <p class="contact-subtitle">
@@ -61,11 +61,14 @@ function handleSubmit() {
     opacity: 1;
   }
   position: relative;
+  min-height: 100vh;
   padding: 6rem 1rem;
   background: radial-gradient(circle at center, #183a17, #0e1b12);
   display: flex;
   align-items: center;
   justify-content: center;
+  scroll-snap-align: start;
+  box-sizing: border-box;
 }
 
 .contact::before {

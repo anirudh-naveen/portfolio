@@ -1,5 +1,5 @@
 <template>
-  <section class="projects">
+  <section id="projects" class="projects">
     <div class="projects-container">
       <h2 class="projects-title">Projects</h2>
       <div class="project-grid">
@@ -61,8 +61,11 @@ const projects = [
 
 <style scoped>
 .projects {
+  min-height: 100vh;
   padding: 6rem 1rem;
   background: url('@/assets/GoldenLines.png'), radial-gradient(circle at center, #183a17, #0e1b12);
+  scroll-snap-align: start;
+  box-sizing: border-box;
 }
 
 .projects-container {
