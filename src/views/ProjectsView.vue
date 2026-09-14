@@ -1,6 +1,6 @@
 <template>
   <section id="projects" class="projects">
-    <ScrollCue direction="up" to="/experience" />
+    <SectionCues up-to="/experience" down-to="/skills" />
     <div class="projects-container">
       <p class="kicker">UPLINK // PUBLIC FEED</p>
       <h2 class="projects-title">Projects</h2>
@@ -18,7 +18,15 @@
             <span class="live-tag">LIVE</span>
           </header>
 
-          <img :src="p.image" :alt="p.title" class="post-img" />
+          <a
+            :href="p.link"
+            class="post-img-link"
+            target="_blank"
+            rel="noreferrer"
+            :aria-label="`Open ${p.title}`"
+          >
+            <img :src="p.image" :alt="p.title" class="post-img" />
+          </a>
 
           <div class="post-body">
             <div class="actions">
@@ -63,13 +71,12 @@
         </article>
       </div>
     </div>
-    <ScrollCue to="/skills" />
   </section>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
-import ScrollCue from '@/components/ScrollCue.vue'
+import SectionCues from '@/components/SectionCues.vue'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
@@ -86,8 +93,8 @@ const projects = [
   {
     slug: 'find-animation',
     title: 'Find Animation',
-    description: 'MEVN stack web app to search, view, and track animation movies and series.',
-    link: 'find-animation.vercel.app',
+    description: 'Web application to search, view, and track animated movies and series.',
+    link: 'https://find-animation.vercel.app',
     image: findAnimationImg,
     author: maji,
     tags: [
@@ -106,8 +113,7 @@ const projects = [
   {
     slug: 'fake-news-detector',
     title: 'Fake News Detector',
-    description:
-      'Deep Learning model that is trained to detect fake news with a certain confidence level.',
+    description: 'Deep Learning model that is trained to detect fake or sensationalized news.',
     link: 'https://github.com/anirudh-naveen/fake-news-detector/blob/main/README.md',
     image: fakeNewsImg,
     author: maji,
@@ -134,8 +140,7 @@ const projects = [
   {
     slug: 'everything-mazes',
     title: 'Everything Mazes',
-    description:
-      'Unity-built video game where players can generate, customize, and play through mazes.',
+    description: 'Unity video game where players can generate, customize, and play through mazes.',
     link: 'https://github.com/anirudh-naveen/Everything-Mazes',
     image: everythingMazesImg,
     author: maji,
@@ -245,8 +250,8 @@ onMounted(async () => {
   --glow: rgba(94, 200, 255, 0.42);
   position: relative;
   min-height: 100vh;
-  padding: 6rem 1rem 5rem;
-  overflow: hidden;
+  padding: 8.6rem 1rem 6.2rem;
+  overflow: visible;
   background: radial-gradient(ellipse at center, #123048 0%, #0a1220 48%, #070b14 100%);
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -379,6 +384,15 @@ onMounted(async () => {
   color: var(--accent-2);
   border: 1px solid color-mix(in srgb, var(--accent-2) 45%, transparent);
   padding: 0.2rem 0.4rem;
+}
+
+.post-img-link {
+  display: block;
+  cursor: pointer;
+}
+
+.post-img-link:hover .post-img {
+  filter: saturate(1) contrast(1.08) brightness(1.06);
 }
 
 .post-img {
