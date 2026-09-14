@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import '@fontsource/rajdhani/latin-500.css'
+import '@fontsource/rajdhani/latin-600.css'
+import '@fontsource/rajdhani/latin-700.css'
+import '@fontsource/share-tech-mono/latin-400.css'
 import App from './App.vue'
 
 const Page = { name: 'Page', render: () => null }
