@@ -2,7 +2,7 @@
   <section id="contact" class="contact">
     <div class="contact-container">
       <p class="kicker">UPLINK // DIRECT</p>
-      <h2 class="contact-title">Contact Me</h2>
+      <h2 class="contact-title">Contact</h2>
       <p class="contact-subtitle">
         Insert encrypted message. Attempts to communicate will be acknowledged.
       </p>

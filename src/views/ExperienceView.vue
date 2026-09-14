@@ -1,6 +1,7 @@
 <template>
   <section id="experience" class="experience">
     <div class="hud-frame"></div>
+    <ScrollCue direction="up" to="/" />
     <div class="experience-container">
       <p class="kicker">RECORD // EMPLOYMENT</p>
       <h2 class="experience-title">Experience</h2>
@@ -19,10 +20,12 @@
         </li>
       </ol>
     </div>
+    <ScrollCue to="/projects" />
   </section>
 </template>
 
 <script lang="ts" setup>
+import ScrollCue from '@/components/ScrollCue.vue'
 const entries = [
   {
     org: 'IBM',
@@ -58,7 +61,7 @@ const entries = [
   position: relative;
   min-height: 100vh;
   background: radial-gradient(ellipse at top, #2a1c0c 0%, #0a1220 52%, #070b14 100%);
-  padding: 6rem 1rem;
+  padding: 6rem 1rem 5rem;
   color: var(--text);
   scroll-snap-align: start;
   box-sizing: border-box;

@@ -34,6 +34,10 @@
               <dd>02/08/2006</dd>
             </div>
             <div class="id-row">
+              <dt>Last Seen</dt>
+              <dd>Austin, TX</dd>
+            </div>
+            <div class="id-row">
               <dt>Occupation</dt>
               <dd>Software Engineer</dd>
             </div>
@@ -70,21 +74,12 @@
         </div>
       </article>
     </div>
-    <a
-      href="#experience"
-      class="scroll-cue"
-      aria-label="Scroll to next section"
-      @click.prevent="navigateTo?.('/experience')"
-    >
-      <span></span>
-    </a>
+    <ScrollCue to="/experience" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
-
-const navigateTo = inject<(path: string) => void>('navigateTo')
+import ScrollCue from '@/components/ScrollCue.vue'
 </script>
 
 <style scoped>
@@ -413,40 +408,6 @@ const navigateTo = inject<(path: string) => void>('navigateTo')
   background: var(--accent);
   color: var(--bg-void);
   box-shadow: 0 0 18px var(--glow);
-}
-
-.scroll-cue {
-  position: absolute;
-  bottom: 1.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  width: 22px;
-  height: 38px;
-  border: 1px solid var(--accent);
-  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-  box-sizing: border-box;
-}
-
-.scroll-cue span {
-  width: 5px;
-  height: 5px;
-  background: var(--accent);
-  animation: cue 1.6s steps(2, end) infinite;
-}
-
-@keyframes cue {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(14px);
-  }
 }
 
 @media (max-width: 768px) {
