@@ -6,61 +6,31 @@
       <p class="kicker">CYBERWARE // INSTALLED</p>
       <h2 class="skills-title">Skills</h2>
       <h3 class="technologies-title">Technologies</h3>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <img src="@/assets/technologies/MongoDB.png" alt="MongoDB" />
-          <p>MongoDB</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Express.svg" alt="Express.js" />
-          <p>Express.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Vue.png" alt="Vue.js" />
-          <p>Vue.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Node.png" alt="Node.js" />
-          <p>Node.js</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Git.png" alt="Git" />
-          <p>Git</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Firebase.png" alt="Firebase" />
-          <p>Firebase</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Docker.png" alt="Docker" />
-          <p>Docker</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/AndroidStudio.png" alt="Android Studio" />
-          <p>Android Studio</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Unity.png" alt="Unity" />
-          <p>Unity</p>
-        </div>
-        <div class="skill-card">
-          <img src="@/assets/technologies/Blender.png" alt="Blender" />
-          <p>Blender</p>
+    </div>
+
+    <div class="marquee" aria-label="Technologies">
+      <div class="marquee-track tech">
+        <div v-for="copy in 2" :key="`tech-${copy}`" class="marquee-group">
+          <div v-for="item in technologies" :key="`${copy}-${item.name}`" class="skill-card">
+            <span class="ad-tag" aria-hidden="true"><span>AD</span></span>
+            <img :src="item.image" :alt="item.name" />
+            <p>{{ item.name }}</p>
+          </div>
         </div>
       </div>
+    </div>
 
+    <div class="skills-container">
       <h3 class="languages-title">Languages</h3>
-      <div class="languages-grid">
-        <div class="languages-card">C</div>
-        <div class="languages-card">Java</div>
-        <div class="languages-card">Python</div>
-        <div class="languages-card">C++</div>
-        <div class="languages-card">C#</div>
-        <div class="languages-card">HTML</div>
-        <div class="languages-card">JavaScript</div>
-        <div class="languages-card">TypeScript</div>
-        <div class="languages-card">SQL</div>
-        <div class="languages-card">Golang</div>
+    </div>
+
+    <div class="marquee" aria-label="Languages">
+      <div class="marquee-track lang">
+        <div v-for="copy in 2" :key="`lang-${copy}`" class="marquee-group">
+          <div v-for="name in languages" :key="`${copy}-${name}`" class="languages-card">
+            {{ name }}
+          </div>
+        </div>
       </div>
     </div>
     <ScrollCue to="/contact" />
@@ -69,6 +39,42 @@
 
 <script lang="ts" setup>
 import ScrollCue from '@/components/ScrollCue.vue'
+import androidStudio from '@/assets/technologies/AndroidStudio.png'
+import blender from '@/assets/technologies/Blender.png'
+import docker from '@/assets/technologies/Docker.png'
+import express from '@/assets/technologies/Express.svg'
+import firebase from '@/assets/technologies/Firebase.png'
+import git from '@/assets/technologies/Git.png'
+import mongo from '@/assets/technologies/MongoDB.png'
+import node from '@/assets/technologies/Node.png'
+import unity from '@/assets/technologies/Unity.png'
+import vue from '@/assets/technologies/Vue.png'
+
+const technologies = [
+  { name: 'MongoDB', image: mongo },
+  { name: 'Express.js', image: express },
+  { name: 'Vue.js', image: vue },
+  { name: 'Node.js', image: node },
+  { name: 'Git', image: git },
+  { name: 'Firebase', image: firebase },
+  { name: 'Docker', image: docker },
+  { name: 'Android Studio', image: androidStudio },
+  { name: 'Unity', image: unity },
+  { name: 'Blender', image: blender },
+]
+
+const languages = [
+  'C',
+  'Java',
+  'Python',
+  'C++',
+  'C#',
+  'HTML',
+  'JavaScript',
+  'TypeScript',
+  'SQL',
+  'Golang',
+]
 </script>
 
 <style scoped>
@@ -81,7 +87,8 @@ import ScrollCue from '@/components/ScrollCue.vue'
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 6rem 1rem 5rem;
+  justify-content: center;
+  padding: 6rem 0 5rem;
   color: var(--text);
   scroll-snap-align: start;
   box-sizing: border-box;
@@ -93,7 +100,14 @@ import ScrollCue from '@/components/ScrollCue.vue'
   inset: 4.8rem 1rem 1.2rem;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   pointer-events: none;
-  clip-path: polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
 }
 
 .skills-container {
@@ -102,6 +116,7 @@ import ScrollCue from '@/components/ScrollCue.vue'
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
   text-align: center;
 }
 
@@ -123,14 +138,36 @@ import ScrollCue from '@/components/ScrollCue.vue'
   text-shadow: 0 0 18px var(--glow);
 }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
-  justify-items: center;
+.marquee {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 32s linear infinite;
+}
+
+.marquee-track.lang {
+  animation-duration: 26s;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  gap: 0.8rem;
+  padding-right: 0.8rem;
 }
 
 .skill-card {
+  position: relative;
   background: linear-gradient(180deg, rgba(16, 24, 42, 0.92), rgba(10, 18, 32, 0.92));
   border: 1px solid color-mix(in srgb, var(--accent) 35%, #1d3344);
   padding: 1.2rem 1rem;
@@ -138,10 +175,38 @@ import ScrollCue from '@/components/ScrollCue.vue'
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  flex: 0 0 148px;
+  width: 148px;
   height: 132px;
   transition: all 0.2s ease;
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  clip-path: polygon(
+    10px 0,
+    100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%,
+    0 10px
+  );
+}
+
+.ad-tag {
+  position: absolute;
+  top: 0.28rem;
+  right: 0.32rem;
+  display: inline-block;
+  isolation: isolate;
+  background: var(--accent);
+  padding: 0.08rem 0.28rem;
+  line-height: 1.2;
+}
+
+.ad-tag span {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #000;
+  mix-blend-mode: destination-out;
 }
 
 .skill-card p {
@@ -181,31 +246,31 @@ import ScrollCue from '@/components/ScrollCue.vue'
 
 .languages-title {
   font-size: 1.5rem;
-  margin: 3.2rem 0 1.4rem;
+  margin: 5rem 0 1.4rem;
   color: var(--accent-2);
   letter-spacing: 0.22em;
+  text-align: center;
   text-transform: uppercase;
   font-family: 'Share Tech Mono', monospace;
 }
 
-.languages-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 0.8rem;
-  justify-items: center;
-}
-
 .languages-card {
-  width: 100%;
+  flex: 0 0 auto;
+  min-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background: rgba(10, 18, 32, 0.88);
   border: 1px solid color-mix(in srgb, var(--accent-2) 28%, #1d3344);
-  padding: 0.7rem 1rem;
+  padding: 0.7rem 1.2rem;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.9rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--accent-2);
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .languages-card:hover {
@@ -214,9 +279,24 @@ import ScrollCue from '@/components/ScrollCue.vue'
   box-shadow: 0 0 16px var(--glow);
 }
 
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media (max-width: 768px) {
   .skills-title {
     font-size: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 </style>
