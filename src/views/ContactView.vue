@@ -5,14 +5,15 @@
       <p class="kicker">UPLINK // DIRECT</p>
       <h2 class="contact-title">Contact</h2>
       <p class="contact-subtitle">
-        Insert encrypted message. Attempts to communicate will be acknowledged.
+        Insert encrypted message here. Attempts to communicate will be acknowledged as soon as
+        possible.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
         <input v-model="form.name" type="text" placeholder="Your Name" required />
         <input v-model="form.email" type="email" placeholder="Your Email" required />
         <textarea v-model="form.message" placeholder="Your Message" rows="5" required></textarea>
-        <button type="submit" class="send-button">Send Message</button>
+        <button type="submit" class="send-button">Send</button>
       </form>
     </div>
   </section>

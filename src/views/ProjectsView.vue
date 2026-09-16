@@ -80,7 +80,7 @@ import SectionCues from '@/components/SectionCues.vue'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
-import findAnimationImg from '@/assets/projects/FindAnimation.png'
+import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
 
 const NAMESPACE = 'anirudh-naveen-portfolio'
@@ -91,11 +91,11 @@ const thutoy = { name: 'Thutoy', id: 'Thutoy123', initials: 'TH' }
 
 const projects = [
   {
-    slug: 'find-animation',
-    title: 'Find Animation',
-    description: 'Web application to search, view, and track animated movies and series.',
-    link: 'https://find-animation.vercel.app',
-    image: findAnimationImg,
+    slug: 'anilounge',
+    title: 'AniLounge',
+    description: 'Web application to search, track, and discuss animated movies and series.',
+    link: 'https://www.anilounge.net',
+    image: aniLounge,
     author: maji,
     tags: [
       'MongoDB',
