@@ -1,23 +1,33 @@
 <template>
-  <nav class="navbar" :class="{ modern: !isCyber }">
+  <nav class="navbar" :class="{ modern: !isCyber, vintage: isVintage }">
     <div class="nav-container">
       <div class="brand">
         <a href="#home" class="logo" @click.prevent="emit('navigate', '/')">
           <span v-if="isCyber" class="logo-kicker">NET // NODE</span>
           {{ isCyber ? 'ANIRUDH NAVEEN' : 'Anirudh Naveen' }}
         </a>
-        <button
-          type="button"
-          class="theme-toggle"
-          role="switch"
-          :aria-checked="isCyber"
-          aria-label="Cyberpunk theme"
-          :title="isCyber ? 'Switch to modern theme' : 'Switch to cyberpunk theme'"
-          @click="toggleTheme"
+        <div
+          ref="switchRef"
+          class="theme-switch"
+          role="radiogroup"
+          aria-label="Site theme"
+          :style="{ '--pos': THEMES.indexOf(theme) }"
+          @keydown="onSwitchKey"
         >
-          <span class="toggle-track" aria-hidden="true"><span class="toggle-thumb"></span></span>
-          <span class="toggle-label" aria-hidden="true">Cyberpunk</span>
-        </button>
+          <span class="switch-thumb" aria-hidden="true"></span>
+          <button
+            v-for="option in THEMES"
+            :key="option"
+            type="button"
+            class="switch-stop"
+            role="radio"
+            :aria-checked="theme === option"
+            :aria-label="themeLabels[option]"
+            :title="`${themeLabels[option]} theme`"
+            :tabindex="theme === option ? 0 : -1"
+            @click="setTheme(option)"
+          ></button>
+        </div>
       </div>
       <div class="links">
         <a
@@ -61,9 +71,31 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from '@/composables/useTheme'
+import { nextTick, ref } from 'vue'
+import { THEMES, useTheme, type SiteTheme } from '@/composables/useTheme'
 
-const { isCyber, toggleTheme } = useTheme()
+const { theme, isCyber, isVintage, setTheme } = useTheme()
+
+const themeLabels: Record<SiteTheme, string> = {
+  vintage: 'Vintage',
+  modern: 'Modern',
+  cyberpunk: 'Cyberpunk',
+}
+
+const switchRef = ref<HTMLElement | null>(null)
+
+// Arrow keys move between stops, as expected for a radio group.
+async function onSwitchKey(event: KeyboardEvent) {
+  const step = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[event.key]
+  if (!step) return
+  event.preventDefault()
+  const index = THEMES.indexOf(theme.value)
+  const next = THEMES[Math.min(THEMES.length - 1, Math.max(0, index + step))]
+  if (!next) return
+  setTheme(next)
+  await nextTick()
+  switchRef.value?.querySelector<HTMLElement>('[aria-checked="true"]')?.focus()
+}
 
 defineProps<{
   activeSection: 'home' | 'experience' | 'skills' | 'projects' | 'contact'
@@ -75,11 +107,17 @@ const emit = defineEmits<{
 </script>
 
 <style scoped>
+/*
+  Shared geometry: the bar padding, brand row height, logo column width and switch size are
+  identical in every theme so the theme switch never moves when the theme changes.
+*/
 .navbar {
+  --brand-height: 2.6rem;
+  --logo-width: 13.5rem;
   background: linear-gradient(180deg, #070b14 0%, rgba(10, 18, 32, 0.97) 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  padding: 0.7rem 1.5rem 0.55rem;
+  padding: 0.7rem 1.5rem;
   position: fixed;
   top: 0;
   left: 0;
@@ -163,57 +201,76 @@ const emit = defineEmits<{
 }
 
 .brand {
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--logo-width) auto;
   align-items: center;
+  justify-content: start;
   gap: 0.9rem;
+  height: var(--brand-height);
+  flex-shrink: 0;
 }
 
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0.5rem;
-  background: transparent;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+.logo {
+  white-space: nowrap;
 }
 
-.theme-toggle:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 12px var(--glow);
-}
+/* Three-stop theme switch: vintage | modern | cyberpunk. Same box size in every theme. */
 
-.theme-toggle:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.toggle-track {
+.theme-switch {
+  --stop: 16px;
+  --inset: 2px;
   position: relative;
-  width: 26px;
-  height: 12px;
-  border: 1px solid var(--accent);
+  display: flex;
+  padding: var(--inset);
   box-sizing: border-box;
+  /* Outline drawn as a shadow so it adds no size */
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
-.toggle-thumb {
+.switch-thumb {
   position: absolute;
-  top: 1px;
-  left: 1px;
-  width: 8px;
-  height: 8px;
+  top: var(--inset);
+  left: var(--inset);
+  width: var(--stop);
+  height: var(--stop);
   background: var(--accent);
   box-shadow: 0 0 8px var(--glow);
-  transform: translateX(14px);
-  transition: transform 0.2s ease;
+  transform: translateX(calc(var(--pos) * var(--stop)));
+  transition: transform 0.22s ease;
+  pointer-events: none;
+}
+
+.switch-stop {
+  position: relative;
+  width: var(--stop);
+  height: var(--stop);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.switch-stop::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.switch-stop[aria-checked='true']::after {
+  opacity: 0;
+}
+
+.switch-stop:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.theme-switch:hover {
+  box-shadow:
+    inset 0 0 0 1px var(--accent),
+    0 0 10px var(--glow);
 }
 
 /* Modern theme */
@@ -222,7 +279,6 @@ const emit = defineEmits<{
   background: color-mix(in srgb, var(--bg-void) 82%, transparent);
   backdrop-filter: saturate(1.6) blur(14px);
   border-bottom: 1px solid var(--border);
-  padding: 0.8rem 1.5rem;
 }
 
 .navbar.modern::after {
@@ -258,63 +314,128 @@ const emit = defineEmits<{
   box-shadow: none;
 }
 
-.navbar.modern .theme-toggle {
-  gap: 0.45rem;
-  padding: 0.25rem 0.6rem 0.25rem 0.3rem;
-  border: 1px solid var(--border);
+.navbar.modern .theme-switch {
   border-radius: 999px;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.navbar.modern .theme-toggle:hover {
-  border-color: var(--border-strong);
-  color: var(--text);
+  background: var(--border-strong);
   box-shadow: none;
 }
 
-.navbar.modern .toggle-track {
-  width: 28px;
-  height: 16px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--border-strong);
+.navbar.modern .theme-switch:hover {
+  box-shadow: none;
+  background: color-mix(in srgb, var(--border-strong) 80%, var(--text-dim));
 }
 
-.navbar.modern .toggle-thumb {
-  top: 2px;
-  left: 2px;
-  width: 12px;
-  height: 12px;
+.navbar.modern .switch-thumb {
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
-  transform: none;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+}
+
+.navbar.modern .switch-stop {
+  border-radius: 50%;
+}
+
+.navbar.modern .switch-stop::after {
+  inset: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 30%, transparent);
+}
+
+/* Vintage theme: brass slider set into a leather strap */
+
+.navbar.vintage {
+  background:
+    linear-gradient(180deg, rgb(255 250 235 / 0.35), transparent),
+    color-mix(in srgb, var(--bg-void) 94%, transparent);
+  backdrop-filter: none;
+  border-bottom: 3px double var(--border-strong);
+  box-shadow: 0 4px 14px -8px rgb(62 39 17 / 0.45);
+}
+
+.navbar.vintage .logo {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.navbar.vintage .nav-link {
+  font-size: 1.05rem;
+  font-style: italic;
+  border-radius: 0;
+  padding: 0.3rem 0.7rem;
+}
+
+.navbar.vintage .nav-link:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+.navbar.vintage .nav-link.active {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/*
+  Triangles, to pair with modern's circles and cyberpunk's squares. The pointed leather strap
+  is drawn on a pseudo-element so its clip-path doesn't clip the stops' focus rings.
+*/
+.navbar.vintage .theme-switch {
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.navbar.vintage .theme-switch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #5a3a1e, #3f2811);
+  box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.55);
+  clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 50%, calc(100% - 5px) 100%, 5px 100%, 0 50%);
+}
+
+.navbar.vintage .theme-switch:hover {
+  background: none;
+}
+
+.navbar.vintage .theme-switch:hover::before {
+  background: linear-gradient(180deg, #6a4524, #4a2f15);
+}
+
+/* Brass pointer */
+.navbar.vintage .switch-thumb {
+  border-radius: 0;
+  background: linear-gradient(160deg, #f4dc9a, #c29a45 55%, #7d5a1f);
+  box-shadow: none;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.5));
+  clip-path: polygon(50% 8%, 92% 90%, 8% 90%);
+}
+
+.navbar.vintage .switch-stop {
+  border-radius: 0;
+}
+
+.navbar.vintage .switch-stop::after {
+  inset: 5px;
+  border-radius: 0;
+  background: rgb(233 212 166 / 0.45);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 
 @media (max-width: 640px) {
-  .navbar.modern {
-    padding: 0.6rem 1rem 0.5rem;
+  .navbar {
+    padding: 0.5rem 1rem;
   }
 
-  .navbar.modern .nav-container {
+  .nav-container {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
-  .navbar.modern .brand {
-    justify-content: space-between;
-  }
-
-  .navbar.modern .logo {
-    white-space: nowrap;
-  }
-
-  .navbar.modern .links {
+  .links {
     flex-wrap: nowrap;
     justify-content: flex-start;
     gap: 0.15rem;
@@ -323,21 +444,22 @@ const emit = defineEmits<{
     scrollbar-width: none;
   }
 
-  .navbar.modern .nav-link {
+  .nav-link {
     flex: 0 0 auto;
+  }
+
+  .navbar.modern .nav-link {
     font-size: 0.88rem;
     padding: 0.35rem 0.7rem;
   }
-}
 
-@media (max-width: 560px) {
-  .toggle-label {
-    display: none;
+  .navbar.vintage .nav-link {
+    font-size: 1rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .toggle-thumb {
+  .switch-thumb {
     transition: none;
   }
 }

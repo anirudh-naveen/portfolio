@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>dex://AnirudhNaveen</title>
     <script>
-      try {
-        document.documentElement.classList.add(
-          localStorage.getItem('site-theme') === 'cyberpunk' ? 'theme-cyber' : 'theme-modern',
-        )
-      } catch (e) {
-        document.documentElement.classList.add('theme-modern')
-      }
+      ;(function () {
+        var classes = { vintage: 'theme-vintage', modern: 'theme-modern', cyberpunk: 'theme-cyber' }
+        var saved = null
+        try {
+          saved = localStorage.getItem('site-theme')
+        } catch (e) {}
+        document.documentElement.classList.add(classes[saved] || 'theme-modern')
+      })()
     </script>
   </head>
   <body>

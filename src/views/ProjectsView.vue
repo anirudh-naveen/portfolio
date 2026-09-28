@@ -1,12 +1,27 @@
 <template>
-  <section id="projects" class="projects" :class="{ modern: !isCyber }">
+  <section id="projects" class="projects" :class="{ modern: !isCyber, vintage: isVintage }">
     <SectionCues up-to="/experience" down-to="/skills" />
     <div class="projects-container">
-      <p class="kicker">{{ isCyber ? 'UPLINK // PUBLIC FEED' : 'Selected work' }}</p>
+      <p class="kicker">
+        {{ isCyber ? 'UPLINK // PUBLIC FEED' : isVintage ? 'Chapter III' : 'Selected work' }}
+      </p>
       <h2 class="projects-title">Projects</h2>
+      <p v-if="isVintage" class="scrap-hint">
+        Tear a photo off the page to rearrange them.
+        <button v-if="isReordered" type="button" class="tidy" @click="resetOrder">
+          Tidy up
+        </button>
+      </p>
 
-      <div class="feed">
-        <article v-for="p in projects" :key="p.slug" class="post">
+      <div ref="feedRef" class="feed">
+        <article
+          v-for="p in displayed"
+          :key="p.slug"
+          class="post"
+          :class="{ torn: draggingSlug === p.slug }"
+          :data-slug="p.slug"
+          @pointerdown="onPointerDown($event, p.slug)"
+        >
           <header v-if="isCyber" class="post-head">
             <div class="avatar" aria-hidden="true">
               <span>{{ p.author.initials }}</span>
@@ -24,8 +39,9 @@
             target="_blank"
             rel="noreferrer"
             :aria-label="`Open ${p.title}`"
+            draggable="false"
           >
-            <img :src="p.image" :alt="p.title" class="post-img" />
+            <img :src="p.image" :alt="p.title" class="post-img" draggable="false" />
           </a>
 
           <div class="post-body">
@@ -78,8 +94,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import SectionCues from '@/components/SectionCues.vue'
+import { useTearToReorder } from '@/composables/useTearToReorder'
 import { useTheme } from '@/composables/useTheme'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
@@ -87,7 +104,7 @@ import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
 import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
 
-const { isCyber } = useTheme()
+const { isCyber, isVintage } = useTheme()
 
 const heartPath = computed(() =>
   isCyber.value
@@ -159,6 +176,15 @@ const projects = [
     tags: ['Unity', 'C#', 'ShaderLab', 'Git'],
   },
 ]
+
+// Vintage only: visitors can tear the polaroids off and rearrange them.
+const feedRef = ref<HTMLElement | null>(null)
+const { displayed, draggingSlug, isReordered, onPointerDown, resetOrder } = useTearToReorder(
+  projects,
+  isVintage,
+  feedRef,
+  'vintage-project-order',
+)
 
 interface LikeState {
   liked: boolean
@@ -288,7 +314,7 @@ onMounted(async () => {
 .projects-container {
   position: relative;
   z-index: 1;
-  max-width: 560px;
+  max-width: 1120px;
   margin: 0 auto;
   text-align: center;
 }
@@ -296,7 +322,7 @@ onMounted(async () => {
 .projects-title {
   font-size: 2.6rem;
   color: var(--accent);
-  margin: 0 0 0.4rem;
+  margin: 0 0 1.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   text-shadow: 0 0 18px var(--glow);
@@ -319,9 +345,11 @@ onMounted(async () => {
   color: var(--accent-2);
 }
 
+/* Three projects per row in every theme (one column on phones) */
 .feed {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.35rem;
 }
 
@@ -409,7 +437,7 @@ onMounted(async () => {
 
 .post-img {
   width: 100%;
-  height: 280px;
+  height: 200px;
   object-fit: cover;
   display: block;
   filter: saturate(0.9) contrast(1.06);
@@ -423,6 +451,7 @@ onMounted(async () => {
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.45rem;
   margin-bottom: 0.55rem;
 }
@@ -574,10 +603,6 @@ onMounted(async () => {
   display: none;
 }
 
-.projects.modern .projects-container {
-  max-width: 1120px;
-}
-
 .projects.modern .kicker {
   color: var(--accent);
   font-size: 0.85rem;
@@ -596,8 +621,6 @@ onMounted(async () => {
 }
 
 .projects.modern .feed {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
 }
 
@@ -735,9 +758,194 @@ onMounted(async () => {
   color: var(--text);
 }
 
+/* Vintage theme: polaroids taped into the scrapbook */
+
+.projects.vintage {
+  background: var(--paper-a), var(--bg-void);
+}
+
+.projects.vintage .kicker {
+  color: var(--accent);
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  transform: rotate(-2deg);
+}
+
+.projects.vintage .projects-title {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.projects.vintage .feed {
+  gap: 2.4rem 2rem;
+}
+
+.projects.vintage .post {
+  position: relative;
+  overflow: visible;
+  padding: 12px 12px 0;
+  border: 1px solid rgb(62 39 17 / 0.12);
+  border-radius: 2px;
+  background:
+    radial-gradient(ellipse at 0% 100%, rgb(139 90 43 / 0.1), transparent 40%),
+    #faf3df;
+  box-shadow: var(--shadow);
+  transform: rotate(-1.2deg);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.projects.vintage .post:nth-child(3n + 2) {
+  transform: rotate(0.9deg);
+}
+
+.projects.vintage .post:nth-child(3n) {
+  transform: rotate(-0.4deg);
+}
+
+.projects.vintage .post:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 4px 12px 22px -6px rgb(62 39 17 / 0.45);
+}
+
+.projects.vintage .post::before {
+  content: '';
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  z-index: 1;
+  width: 104px;
+  height: 26px;
+  background: var(--tape);
+  box-shadow: 0 1px 2px rgb(62 39 17 / 0.15);
+  clip-path: polygon(2% 10%, 98% 0, 100% 90%, 0 100%);
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+/* Tear-to-rearrange */
+
+.projects.vintage .post {
+  cursor: grab;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.projects.vintage .post-img-link,
+.projects.vintage .action {
+  -webkit-user-drag: none;
+}
+
+.projects.vintage .post.torn {
+  z-index: 20;
+  cursor: grabbing;
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 10px 22px 34px -10px rgb(62 39 17 / 0.55);
+  transition: box-shadow 0.2s ease;
+  animation: rip 0.22s ease-out;
+}
+
+/* Half the tape stays behind: what's left on the photo has a ragged, ripped edge */
+.projects.vintage .post.torn::before {
+  width: 50px;
+  margin-left: -26px;
+  clip-path: polygon(0 12%, 100% 0, 88% 22%, 100% 40%, 84% 58%, 96% 78%, 86% 100%, 2% 100%);
+}
+
+@keyframes rip {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  40% {
+    transform: rotate(-2.5deg) scale(1.07);
+  }
+  100% {
+    transform: rotate(0deg) scale(1.04);
+  }
+}
+
+.projects.vintage .scrap-hint {
+  margin: -1.2rem 0 2rem;
+  color: var(--text-muted);
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  transform: rotate(-1deg);
+}
+
+.projects.vintage .tidy {
+  margin-left: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline wavy color-mix(in srgb, var(--accent) 50%, transparent);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.projects.vintage .post-img {
+  border: 1px solid rgb(62 39 17 / 0.2);
+  filter: sepia(0.45) saturate(0.8) contrast(0.95);
+  transition: filter 0.3s ease;
+}
+
+.projects.vintage .post-img-link:hover .post-img {
+  filter: sepia(0.1);
+}
+
+.projects.vintage .post-body {
+  padding: 0.9rem 0.4rem 0.9rem;
+}
+
+.projects.vintage .caption {
+  font-size: 1.05rem;
+}
+
+/* Handwritten polaroid caption */
+.projects.vintage .caption-title {
+  color: var(--ink-blue);
+  font-family: var(--font-hand);
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
+.projects.vintage .tags li {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: rgb(255 250 235 / 0.6);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.projects.vintage .actions {
+  border-top: 1px dashed var(--border);
+}
+
+.projects.vintage .action {
+  border-radius: 2px;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+.projects.vintage .action.link {
+  font-style: italic;
+}
+
 @media (max-width: 768px) {
   .projects.modern .projects-title {
     font-size: 2.1rem;
+  }
+
+  .projects.vintage .projects-title {
+    font-size: 2.6rem;
   }
 }
 
@@ -747,7 +955,26 @@ onMounted(async () => {
   }
 
   .post-img {
-    height: 220px;
+    height: 160px;
+  }
+
+  .projects.modern .post-img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-container {
+    max-width: 560px;
+  }
+
+  .feed {
+    grid-template-columns: 1fr;
+  }
+
+  .post-img,
+  .projects.modern .post-img {
+    height: 210px;
   }
 }
 </style>

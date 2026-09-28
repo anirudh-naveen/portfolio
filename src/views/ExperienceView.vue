@@ -1,9 +1,15 @@
 <template>
-  <section id="experience" class="experience" :class="{ modern: !isCyber }">
+  <section
+    id="experience"
+    class="experience"
+    :class="{ modern: !isCyber, vintage: isVintage }"
+  >
     <div class="hud-frame"></div>
     <SectionCues up-to="/" down-to="/projects" />
     <div class="experience-container">
-      <p class="kicker">{{ isCyber ? 'RECORD // EMPLOYMENT' : 'Career' }}</p>
+      <p class="kicker">
+        {{ isCyber ? 'RECORD // EMPLOYMENT' : isVintage ? 'Chapter II' : 'Career' }}
+      </p>
       <h2 class="experience-title">Experience</h2>
 
       <ol class="timeline">
@@ -36,7 +42,7 @@ import landisGyrLogo from '@/assets/experience/Landis+Gyr.png'
 import arbysLogo from '@/assets/experience/Arbys.png'
 import taekwondoLogo from '@/assets/experience/Taekwondo.png'
 
-const { isCyber } = useTheme()
+const { isCyber, isVintage } = useTheme()
 
 const entries = [
   {
@@ -349,9 +355,124 @@ const entries = [
   line-height: 1.6;
 }
 
+/* Vintage theme: a dashed route across the map, each stop an index card */
+
+.experience.vintage {
+  background: var(--paper-b), var(--bg-deep);
+}
+
+.experience.vintage .kicker {
+  color: var(--accent);
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  transform: rotate(-2deg);
+}
+
+.experience.vintage .experience-title {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.experience.vintage .timeline {
+  border-left: 2px dashed color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* X marks each stop on the route */
+.experience.vintage .timeline-item::before {
+  content: '✕';
+  left: -9px;
+  top: 1.35rem;
+  width: auto;
+  height: auto;
+  background: none;
+  box-shadow: none;
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.experience.vintage .logo-slot {
+  background: #f8f0da;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: 1.5px dotted var(--border-strong);
+  outline-offset: -5px;
+  box-shadow: var(--shadow-sm);
+  transform: rotate(-4deg);
+}
+
+.experience.vintage .timeline-item:nth-child(even) .logo-slot {
+  transform: rotate(3deg);
+}
+
+.experience.vintage .logo-slot img {
+  filter: sepia(0.55) saturate(0.85) contrast(0.95);
+  mix-blend-mode: multiply;
+}
+
+/* Ruled index card with a red header line */
+.experience.vintage .timeline-card {
+  border-radius: 2px;
+  border-color: color-mix(in srgb, var(--border) 60%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      transparent 2.35rem,
+      rgb(155 28 28 / 0.35) 2.35rem,
+      rgb(155 28 28 / 0.35) calc(2.35rem + 1px),
+      transparent calc(2.35rem + 1px)
+    ),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 calc(1.55rem - 1px),
+      rgb(47 74 90 / 0.14) calc(1.55rem - 1px) 1.55rem
+    ),
+    #fbf3dc;
+  box-shadow: var(--shadow);
+  transform: rotate(0.4deg);
+}
+
+.experience.vintage .timeline-item:nth-child(even) .timeline-card {
+  transform: rotate(-0.5deg);
+}
+
+.experience.vintage .timeline-dates {
+  color: var(--ink-blue);
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.experience.vintage .timeline-org {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.experience.vintage .timeline-role {
+  font-size: 1.05rem;
+  font-style: italic;
+}
+
+.experience.vintage .timeline-desc {
+  font-size: 1.05rem;
+}
+
 @media (max-width: 768px) {
   .experience.modern .experience-title {
     font-size: 2.1rem;
+  }
+
+  .experience.vintage .experience-title {
+    font-size: 2.6rem;
   }
 }
 

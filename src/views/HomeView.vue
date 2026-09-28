@@ -1,9 +1,29 @@
 <template>
-  <section id="home" class="landing" :class="{ modern: !isCyber }">
+  <section id="home" class="landing" :class="{ modern: !isCyber, vintage: isVintage }">
     <div class="hud-frame"></div>
+    <svg v-if="isVintage" class="compass" viewBox="-56 -60 112 116" aria-hidden="true">
+      <circle r="46" fill="none" stroke="currentColor" stroke-width="0.9" />
+      <circle r="42" fill="none" stroke="currentColor" stroke-width="0.5" stroke-dasharray="1 2" />
+      <g stroke="currentColor" stroke-width="0.6" stroke-linejoin="round">
+        <path
+          d="M0 -26 L5 -5 L26 0 L5 5 L0 26 L-5 5 L-26 0 L-5 -5 Z"
+          transform="rotate(45)"
+          fill="none"
+        />
+        <path
+          d="M0 -40 L7 -7 L0 0 Z M40 0 L7 7 L0 0 Z M0 40 L-7 7 L0 0 Z M-40 0 L-7 -7 L0 0 Z"
+          fill="currentColor"
+        />
+        <path
+          d="M0 -40 L-7 -7 L0 0 Z M40 0 L7 -7 L0 0 Z M0 40 L7 7 L0 0 Z M-40 0 L-7 7 L0 0 Z"
+          fill="none"
+        />
+      </g>
+      <text y="-49" text-anchor="middle" font-size="10" fill="currentColor">N</text>
+    </svg>
     <SectionCues down-to="/experience" />
     <div class="container">
-      <p class="page-kicker">{{ isCyber ? 'IDENTIFICATION // CONFIDENTIAL' : 'Introduction' }}</p>
+      <p class="page-kicker">{{ kicker }}</p>
       <h2 class="home-title">Bio</h2>
       <article class="id-card">
         <header v-if="isCyber" class="id-header">
@@ -13,7 +33,7 @@
 
         <div class="id-body">
           <div v-if="!isCyber" class="id-photo" aria-hidden="true">
-            <span class="monogram">AN</span>
+            <span class="monogram">{{ isVintage ? 'A.N.' : 'AN' }}</span>
           </div>
           <div v-else class="id-photo" aria-hidden="true">
             <div class="photo-silhouette"></div>
@@ -79,9 +99,14 @@
 
 <script lang="ts" setup>
 import SectionCues from '@/components/SectionCues.vue'
+import { computed } from 'vue'
 import { useTheme } from '@/composables/useTheme'
 
-const { isCyber } = useTheme()
+const { isCyber, isVintage } = useTheme()
+
+const kicker = computed(() =>
+  isCyber.value ? 'IDENTIFICATION // CONFIDENTIAL' : isVintage.value ? 'Chapter I' : 'Introduction',
+)
 </script>
 
 <style scoped>
@@ -535,13 +560,190 @@ const { isCyber } = useTheme()
   height: 20px;
 }
 
+/* Vintage theme: a page taped into a scrapbook */
+
+.landing.vintage {
+  background: var(--paper-a), var(--bg-void);
+}
+
+.landing.vintage .compass {
+  position: absolute;
+  right: 4%;
+  bottom: 7%;
+  width: 170px;
+  color: var(--text-muted);
+  opacity: 0.32;
+  transform: rotate(-14deg);
+  font-family: var(--font-display);
+  pointer-events: none;
+}
+
+.landing.vintage .page-kicker {
+  color: var(--accent);
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  transform: rotate(-2deg);
+}
+
+.landing.vintage .home-title {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.landing.vintage .id-card {
+  position: relative;
+  border-radius: 2px;
+  border-color: color-mix(in srgb, var(--border) 70%, transparent);
+  background:
+    linear-gradient(180deg, rgb(255 252 240 / 0.5), transparent 40%),
+    radial-gradient(ellipse at 100% 100%, rgb(139 90 43 / 0.14), transparent 45%),
+    var(--bg-card);
+  transform: rotate(-0.6deg);
+}
+
+.landing.vintage .id-card::before,
+.landing.vintage .id-card::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 96px;
+  height: 26px;
+  background: var(--tape);
+  box-shadow: 0 1px 2px rgb(62 39 17 / 0.15);
+  clip-path: polygon(3% 8%, 97% 0, 100% 92%, 1% 100%);
+}
+
+.landing.vintage .id-card::before {
+  left: 18px;
+  transform: rotate(-6deg);
+}
+
+.landing.vintage .id-card::after {
+  right: 18px;
+  transform: rotate(5deg);
+}
+
+.landing.vintage .id-photo {
+  position: relative;
+  overflow: visible;
+  border: 7px solid #f8f0da;
+  border-bottom-width: 22px;
+  border-radius: 1px;
+  background:
+    radial-gradient(ellipse at 50% 35%, #b89464, #7a5a36 70%, #4d3720),
+    #7a5a36;
+  box-shadow: var(--shadow);
+  transform: rotate(-3deg);
+}
+
+/* Black photo corners holding the picture on the page */
+.landing.vintage .id-photo::before,
+.landing.vintage .id-photo::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #2b1d10;
+}
+
+.landing.vintage .id-photo::before {
+  top: -10px;
+  left: -10px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.landing.vintage .id-photo::after {
+  right: -10px;
+  bottom: -25px;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.landing.vintage .monogram {
+  color: #f3e3bf;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.3);
+}
+
+.landing.vintage .id-row {
+  border-bottom: 1px dashed var(--border);
+}
+
+.landing.vintage .id-row dt {
+  font-size: 0.95rem;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+
+.landing.vintage .id-row dd {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Rubber-stamped specialisations */
+.landing.vintage .concentrations li {
+  border: 1.5px solid var(--accent);
+  border-radius: 3px;
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  transform: rotate(-1.5deg);
+}
+
+.landing.vintage .concentrations li:nth-child(2) {
+  color: var(--ink-blue);
+  border-color: var(--ink-blue);
+  transform: rotate(1.2deg);
+}
+
+.landing.vintage .link-button {
+  border-radius: 2px;
+  border-style: dashed;
+  font-size: 1rem;
+  font-style: italic;
+  background: rgb(255 250 235 / 0.4);
+}
+
+.landing.vintage .link-button:hover {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgb(255 250 235 / 0.7);
+}
+
+.landing.vintage .link-icon {
+  filter: sepia(0.7) saturate(0.8);
+}
+
 @media (max-width: 768px) {
   .landing.modern .home-title {
     font-size: 2.1rem;
   }
 
+  .landing.vintage .home-title {
+    font-size: 2.6rem;
+  }
+
   .landing.modern .id-card {
     padding: 1.4rem;
+  }
+
+  .landing.vintage .compass {
+    width: 110px;
+    bottom: 3%;
   }
 }
 
