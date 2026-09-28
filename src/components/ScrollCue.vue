@@ -2,7 +2,7 @@
   <a
     :href="href"
     class="scroll-cue"
-    :class="direction"
+    :class="[direction, { modern: !isCyber }]"
     :aria-label="direction === 'up' ? 'Scroll to previous section' : 'Scroll to next section'"
     @click.prevent="navigateTo?.(to)"
   >
@@ -12,6 +12,7 @@
 
 <script lang="ts" setup>
 import { computed, inject } from 'vue'
+import { useTheme } from '@/composables/useTheme'
 
 const props = withDefaults(
   defineProps<{
@@ -21,6 +22,7 @@ const props = withDefaults(
   { direction: 'down' },
 )
 
+const { isCyber } = useTheme()
 const navigateTo = inject<(path: string) => void>('navigateTo')
 const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
 </script>
@@ -60,6 +62,27 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
 
 .scroll-cue.up span {
   animation-name: cue-up;
+}
+
+.scroll-cue.modern {
+  border: 1.5px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--bg-card);
+  clip-path: none;
+}
+
+.scroll-cue.modern:hover {
+  border-color: var(--accent);
+}
+
+.scroll-cue.modern span {
+  border-radius: 50%;
+  background: var(--text-dim);
+  animation-timing-function: ease-in-out;
+}
+
+.scroll-cue.modern:hover span {
+  background: var(--accent);
 }
 
 @keyframes cue-down {

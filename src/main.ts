@@ -4,6 +4,12 @@ import '@fontsource/rajdhani/latin-500.css'
 import '@fontsource/rajdhani/latin-600.css'
 import '@fontsource/rajdhani/latin-700.css'
 import '@fontsource/share-tech-mono/latin-400.css'
+import '@fontsource-variable/inter'
+import '@fontsource/im-fell-english/latin-400.css'
+import '@fontsource/im-fell-english/latin-400-italic.css'
+import '@fontsource-variable/eb-garamond'
+import '@fontsource-variable/eb-garamond/wght-italic.css'
+import '@fontsource-variable/caveat'
 import App from './App.vue'
 
 const Page = { name: 'Page', render: () => null }
