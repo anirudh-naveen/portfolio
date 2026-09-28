@@ -1,18 +1,21 @@
 <template>
-  <section id="home" class="landing">
+  <section id="home" class="landing" :class="{ modern: !isCyber }">
     <div class="hud-frame"></div>
     <SectionCues down-to="/experience" />
     <div class="container">
-      <p class="page-kicker">IDENTIFICATION // CONFIDENTIAL</p>
+      <p class="page-kicker">{{ isCyber ? 'IDENTIFICATION // CONFIDENTIAL' : 'Introduction' }}</p>
       <h2 class="home-title">Bio</h2>
       <article class="id-card">
-        <header class="id-header">
+        <header v-if="isCyber" class="id-header">
           <p class="kicker">NET // CITIZEN FILE</p>
           <p class="serial">ID-AN-020806 // STATUS: CLEAR</p>
         </header>
 
         <div class="id-body">
-          <div class="id-photo" aria-hidden="true">
+          <div v-if="!isCyber" class="id-photo" aria-hidden="true">
+            <span class="monogram">AN</span>
+          </div>
+          <div v-else class="id-photo" aria-hidden="true">
             <div class="photo-silhouette"></div>
             <div class="redact-bars">
               <span></span>
@@ -76,6 +79,9 @@
 
 <script lang="ts" setup>
 import SectionCues from '@/components/SectionCues.vue'
+import { useTheme } from '@/composables/useTheme'
+
+const { isCyber } = useTheme()
 </script>
 
 <style scoped>
@@ -91,7 +97,7 @@ import SectionCues from '@/components/SectionCues.vue'
   box-sizing: border-box;
   overflow: visible;
   background: radial-gradient(ellipse at top left, #1c2a12 0%, #0a1220 46%, #070b14 100%);
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-body);
   padding: 6rem 1rem 6.2rem;
   color: var(--text);
 }
@@ -99,7 +105,7 @@ import SectionCues from '@/components/SectionCues.vue'
 .page-kicker {
   margin: 0 0 0.5rem;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.38em;
   text-align: center;
@@ -256,7 +262,7 @@ import SectionCues from '@/components/SectionCues.vue'
   z-index: 2;
   margin: 0;
   transform: translate(-50%, -50%) rotate(-18deg);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   color: var(--accent);
@@ -273,7 +279,7 @@ import SectionCues from '@/components/SectionCues.vue'
   bottom: 0.35rem;
   z-index: 2;
   margin: 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.52rem;
   letter-spacing: 0.14em;
   color: var(--accent-2);
@@ -293,7 +299,7 @@ import SectionCues from '@/components/SectionCues.vue'
 .kicker {
   margin: 0;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -302,7 +308,7 @@ import SectionCues from '@/components/SectionCues.vue'
 .serial {
   margin: 0;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -323,7 +329,7 @@ import SectionCues from '@/components/SectionCues.vue'
 
 .id-row dt {
   margin: 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -358,7 +364,7 @@ import SectionCues from '@/components/SectionCues.vue'
 }
 
 .concentrations li {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -384,7 +390,7 @@ import SectionCues from '@/components/SectionCues.vue'
   border: 1px solid var(--accent);
   color: var(--accent);
   text-decoration: none;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -403,6 +409,140 @@ import SectionCues from '@/components/SectionCues.vue'
   background: var(--accent);
   color: var(--bg-void);
   box-shadow: 0 0 18px var(--glow);
+}
+
+/* Modern theme */
+
+.landing.modern {
+  --accent: var(--brand);
+  background: var(--bg-void);
+}
+
+.landing.modern .hud-frame {
+  display: none;
+}
+
+.landing.modern .page-kicker {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.landing.modern .home-title {
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.landing.modern .id-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  clip-path: none;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+}
+
+.landing.modern .id-body {
+  gap: 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.landing.modern .id-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 50%, #ec4899));
+}
+
+.landing.modern .monogram {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.landing.modern .id-row {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.landing.modern .id-row:last-child {
+  border-bottom: 0;
+}
+
+.landing.modern .id-row dt {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.landing.modern .id-row dd {
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.landing.modern .concentrations-row dt {
+  padding-top: 0.25rem;
+}
+
+.landing.modern .concentrations li {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 0;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.3rem 0.75rem;
+}
+
+.landing.modern .link-button {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  clip-path: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+}
+
+.landing.modern .link-button:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-strong);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.landing.modern .link-icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .landing.modern .home-title {
+    font-size: 2.1rem;
+  }
+
+  .landing.modern .id-card {
+    padding: 1.4rem;
+  }
 }
 
 @media (max-width: 768px) {

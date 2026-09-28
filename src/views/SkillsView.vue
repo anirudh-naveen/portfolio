@@ -1,9 +1,9 @@
 <template>
-  <section id="skills" class="skills">
+  <section id="skills" class="skills" :class="{ modern: !isCyber }">
     <div class="hud-frame"></div>
     <SectionCues up-to="/projects" down-to="/contact" />
     <div class="skills-container">
-      <p class="kicker">CYBERWARE // INSTALLED</p>
+      <p class="kicker">{{ isCyber ? 'CYBERWARE // INSTALLED' : 'Toolkit' }}</p>
       <h2 class="skills-title">Skills</h2>
       <h3 class="technologies-title">Technologies</h3>
     </div>
@@ -12,7 +12,7 @@
       <div class="marquee-track tech">
         <div v-for="copy in 2" :key="`tech-${copy}`" class="marquee-group">
           <div v-for="item in technologies" :key="`${copy}-${item.name}`" class="skill-card">
-            <span class="ad-tag" aria-hidden="true"><span>AD</span></span>
+            <span v-if="isCyber" class="ad-tag" aria-hidden="true"><span>AD</span></span>
             <img :src="item.image" :alt="item.name" />
             <p>{{ item.name }}</p>
           </div>
@@ -38,6 +38,7 @@
 
 <script lang="ts" setup>
 import SectionCues from '@/components/SectionCues.vue'
+import { useTheme } from '@/composables/useTheme'
 import androidStudio from '@/assets/technologies/AndroidStudio.png'
 import blender from '@/assets/technologies/Blender.png'
 import docker from '@/assets/technologies/Docker.png'
@@ -48,6 +49,8 @@ import mongo from '@/assets/technologies/MongoDB.png'
 import node from '@/assets/technologies/Node.png'
 import unity from '@/assets/technologies/Unity.png'
 import vue from '@/assets/technologies/Vue.png'
+
+const { isCyber } = useTheme()
 
 const technologies = [
   { name: 'MongoDB', image: mongo },
@@ -116,13 +119,14 @@ const languages = [
   width: 100%;
   margin: 0 auto;
   padding: 0 1rem;
+  box-sizing: border-box;
   text-align: center;
 }
 
 .kicker {
   margin: 0 0 0.5rem;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -200,7 +204,7 @@ const languages = [
 }
 
 .ad-tag span {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -210,7 +214,7 @@ const languages = [
 
 .skill-card p {
   margin: 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -240,7 +244,7 @@ const languages = [
   color: var(--accent-2);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
 }
 
 .languages-title {
@@ -250,7 +254,7 @@ const languages = [
   letter-spacing: 0.22em;
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
 }
 
 .languages-card {
@@ -263,7 +267,7 @@ const languages = [
   background: rgba(10, 18, 32, 0.88);
   border: 1px solid color-mix(in srgb, var(--accent-2) 28%, #1d3344);
   padding: 0.7rem 1.2rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -284,6 +288,104 @@ const languages = [
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* Modern theme */
+
+.skills.modern {
+  --accent: var(--brand);
+  background: var(--bg-deep);
+}
+
+.skills.modern .hud-frame {
+  display: none;
+}
+
+.skills.modern .kicker {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.skills.modern .skills-title {
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.skills.modern .technologies-title,
+.skills.modern .languages-title {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.skills.modern .languages-title {
+  margin-top: 3.5rem;
+}
+
+.skills.modern .marquee-track {
+  padding: 0.5rem 0;
+}
+
+.skills.modern .skill-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  clip-path: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.skills.modern .skill-card img {
+  filter: none;
+}
+
+.skills.modern .skill-card p {
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.skills.modern .skill-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+}
+
+.skills.modern .skill-card:hover p {
+  color: var(--text);
+}
+
+.skills.modern .languages-card {
+  min-width: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.55rem 1.3rem;
+}
+
+.skills.modern .languages-card:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .skills.modern .skills-title {
+    font-size: 2.1rem;
   }
 }
 

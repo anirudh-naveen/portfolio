@@ -7,10 +7,12 @@
     <AppNavbar :active-section="activeSection" @navigate="navigate" />
 
     <div class="page-stage" :class="{ 'is-scroll-glitch': scrollFlicker }">
-      <NetBackground />
-      <AmbientGlitch :burst="scrollFlicker" />
-      <div class="scanlines" aria-hidden="true"></div>
-      <div class="grain" aria-hidden="true"></div>
+      <template v-if="isCyber">
+        <NetBackground />
+        <AmbientGlitch :burst="scrollFlicker" />
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+      </template>
 
       <HomeView />
       <ExperienceView />
@@ -32,7 +34,7 @@
       />
     </nav>
 
-    <GlitchTransition :active="glitching" />
+    <GlitchTransition v-if="isCyber" :active="glitching" />
   </div>
 </template>
 
@@ -48,6 +50,7 @@ import ExperienceView from '@/views/ExperienceView.vue'
 import SkillsView from '@/views/SkillsView.vue'
 import ProjectsView from '@/views/ProjectsView.vue'
 import ContactView from '@/views/ContactView.vue'
+import { useTheme } from '@/composables/useTheme'
 
 type SectionId = 'home' | 'experience' | 'skills' | 'projects' | 'contact'
 
@@ -61,6 +64,7 @@ const sections = [
 
 const router = useRouter()
 const route = useRoute()
+const { isCyber } = useTheme()
 const activeSection = ref<SectionId>('home')
 const glitching = ref(false)
 const scrollFlicker = ref(false)
@@ -119,7 +123,7 @@ function updateActiveFromScroll() {
 }
 
 function pulseScrollGlitch() {
-  if (lockSpy || glitching.value || prefersReducedMotion()) return
+  if (!isCyber.value || lockSpy || glitching.value || prefersReducedMotion()) return
 
   const now = performance.now()
   if (now - lastFlicker < 420) return
@@ -158,7 +162,7 @@ async function navigate(path: string) {
     void router.push(path)
   }
 
-  if (!reduceMotion) {
+  if (isCyber.value && !reduceMotion) {
     glitching.value = false
     await nextTick()
     glitching.value = true
@@ -228,6 +232,56 @@ body {
   --text-dim: #6d7c78;
   --border: #1d3344;
   --glow: rgba(212, 255, 63, 0.4);
+  --font-body: 'Rajdhani', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+html.theme-modern {
+  color-scheme: light;
+  --bg-void: #ffffff;
+  --bg-deep: #f7f7f8;
+  --bg-card: #ffffff;
+  --text: #111827;
+  --text-muted: #4b5563;
+  --text-dim: #9ca3af;
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --surface-hover: #f3f4f6;
+  --brand: #4f46e5;
+  --on-brand: #ffffff;
+  --like: #e11d48;
+  --accent: var(--brand);
+  --accent-2: var(--text-muted);
+  --glow: transparent;
+  --shadow-sm: 0 1px 2px rgb(16 24 40 / 0.05);
+  --shadow: 0 1px 3px rgb(16 24 40 / 0.06), 0 12px 32px -16px rgb(16 24 40 / 0.18);
+  --font-body: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-body);
+}
+
+@media (prefers-color-scheme: dark) {
+  html.theme-modern {
+    color-scheme: dark;
+    --bg-void: #0b0c0f;
+    --bg-deep: #111317;
+    --bg-card: #16181d;
+    --text: #ecedf0;
+    --text-muted: #a1a7b3;
+    --text-dim: #6b7280;
+    --border: #262932;
+    --border-strong: #353945;
+    --surface-hover: #1d2027;
+    --brand: #818cf8;
+    --on-brand: #0b0c0f;
+    --like: #fb7185;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 12px 32px -16px rgb(0 0 0 / 0.6);
+  }
+}
+
+html.theme-modern #app[data-theme] {
+  --accent: var(--brand);
+  --glow: transparent;
 }
 
 #app[data-theme='home'] {
@@ -258,7 +312,11 @@ body {
 body {
   background-color: var(--bg-void);
   color: var(--text);
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-body);
+}
+
+html.theme-modern body {
+  -webkit-font-smoothing: antialiased;
 }
 
 .scanlines {
@@ -349,6 +407,26 @@ body {
 .section-dot.active {
   background: var(--accent);
   box-shadow: 0 0 12px var(--glow);
+}
+
+html.theme-modern .section-dot {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--border-strong);
+  transform: none;
+}
+
+html.theme-modern .section-dot:hover {
+  background: var(--text-dim);
+  box-shadow: none;
+}
+
+html.theme-modern .section-dot.active {
+  background: var(--accent);
+  box-shadow: none;
+  transform: scale(1.3);
 }
 
 @media (max-width: 768px) {

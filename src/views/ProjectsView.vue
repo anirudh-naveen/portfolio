@@ -1,13 +1,13 @@
 <template>
-  <section id="projects" class="projects">
+  <section id="projects" class="projects" :class="{ modern: !isCyber }">
     <SectionCues up-to="/experience" down-to="/skills" />
     <div class="projects-container">
-      <p class="kicker">UPLINK // PUBLIC FEED</p>
+      <p class="kicker">{{ isCyber ? 'UPLINK // PUBLIC FEED' : 'Selected work' }}</p>
       <h2 class="projects-title">Projects</h2>
 
       <div class="feed">
         <article v-for="p in projects" :key="p.slug" class="post">
-          <header class="post-head">
+          <header v-if="isCyber" class="post-head">
             <div class="avatar" aria-hidden="true">
               <span>{{ p.author.initials }}</span>
             </div>
@@ -35,18 +35,21 @@
                 class="action like"
                 :class="{ on: likes[p.slug]?.liked }"
                 :aria-pressed="likes[p.slug]?.liked === true"
+                :aria-label="isCyber ? undefined : `Like ${p.title} (${displayCount(p.slug)})`"
                 @click="toggleLike(p.slug)"
               >
                 <svg class="cyber-heart" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 21.5 L2 11.2 L2 7.2 L6.2 3 L12 8.4 L17.8 3 L22 7.2 L22 11.2 Z" />
+                  <path :d="heartPath" />
                 </svg>
-                BOOST
+                {{ isCyber ? 'BOOST' : displayCount(p.slug) }}
               </button>
-              <button type="button" class="action comment" disabled>REPLY</button>
-              <a :href="p.link" target="_blank" rel="noreferrer" class="action link">OPEN</a>
+              <button v-if="isCyber" type="button" class="action comment" disabled>REPLY</button>
+              <a :href="p.link" target="_blank" rel="noreferrer" class="action link">{{
+                isCyber ? 'OPEN' : 'View project →'
+              }}</a>
             </div>
 
-            <p class="like-count">
+            <p v-if="isCyber" class="like-count">
               <svg class="cyber-heart" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 21.5 L2 11.2 L2 7.2 L6.2 3 L12 8.4 L17.8 3 L22 7.2 L22 11.2 Z" />
               </svg>
@@ -54,16 +57,16 @@
             </p>
 
             <p class="caption">
-              <span class="caption-user">@{{ p.author.id }}</span>
+              <span v-if="isCyber" class="caption-user">@{{ p.author.id }}</span>
               <span class="caption-title">{{ p.title }}</span>
               <span class="caption-desc">{{ p.description }}</span>
             </p>
 
             <ul class="tags" aria-label="Skills">
-              <li v-for="tag in p.tags" :key="tag">#{{ tag }}</li>
+              <li v-for="tag in p.tags" :key="tag">{{ isCyber ? '#' : '' }}{{ tag }}</li>
             </ul>
 
-            <div class="comment-lock">
+            <div v-if="isCyber" class="comment-lock">
               <input type="text" disabled placeholder="Add a transmission..." />
               <p>COMMENTS LOCKED BY AUTHOR</p>
             </div>
@@ -75,13 +78,22 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import SectionCues from '@/components/SectionCues.vue'
+import { useTheme } from '@/composables/useTheme'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
 import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
+
+const { isCyber } = useTheme()
+
+const heartPath = computed(() =>
+  isCyber.value
+    ? 'M12 21.5 L2 11.2 L2 7.2 L6.2 3 L12 8.4 L17.8 3 L22 7.2 L22 11.2 Z'
+    : 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+)
 
 const NAMESPACE = 'anirudh-naveen-portfolio'
 const STORAGE_KEY = 'maji-feed-likes'
@@ -293,7 +305,7 @@ onMounted(async () => {
 .kicker {
   margin: 0 0 0.5rem;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -301,7 +313,7 @@ onMounted(async () => {
 
 .feed-alias {
   margin: 0 0 1.8rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   color: var(--accent-2);
@@ -351,7 +363,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--accent);
@@ -371,14 +383,14 @@ onMounted(async () => {
 
 .node {
   margin: 0.1rem 0 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.12em;
   color: var(--accent-2);
 }
 
 .live-tag {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.16em;
   color: var(--accent-2);
@@ -416,7 +428,7 @@ onMounted(async () => {
 }
 
 .action {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -471,7 +483,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -492,7 +504,7 @@ onMounted(async () => {
 
 .caption-user {
   color: var(--accent);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   margin-right: 0.35rem;
 }
 
@@ -518,7 +530,7 @@ onMounted(async () => {
 }
 
 .tags li {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -535,7 +547,7 @@ onMounted(async () => {
   background: rgba(7, 11, 20, 0.8);
   border: 1px dashed color-mix(in srgb, var(--accent-2) 35%, transparent);
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   padding: 0.55rem 0.65rem;
@@ -544,11 +556,189 @@ onMounted(async () => {
 
 .comment-lock p {
   margin: 0.4rem 0 0;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent-2);
+}
+
+/* Modern theme */
+
+.projects.modern {
+  --accent: var(--brand);
+  background: var(--bg-void);
+}
+
+.projects.modern::before {
+  display: none;
+}
+
+.projects.modern .projects-container {
+  max-width: 1120px;
+}
+
+.projects.modern .kicker {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.projects.modern .projects-title {
+  margin-bottom: 2.4rem;
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.projects.modern .feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.projects.modern .post {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  clip-path: none;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.projects.modern .post:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.projects.modern .post-img {
+  height: 190px;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  filter: none;
+}
+
+.projects.modern .post-img-link:hover .post-img {
+  filter: none;
+}
+
+.projects.modern .post-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem 1.1rem;
+}
+
+.projects.modern .caption {
+  order: 1;
+  margin-bottom: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.projects.modern .caption-title {
+  display: block;
+  color: var(--text);
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.projects.modern .caption-desc {
+  margin-top: 0.3rem;
+}
+
+.projects.modern .tags {
+  order: 2;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.projects.modern .tags li {
+  background: var(--surface-hover);
+  border: 0;
+  border-radius: 999px;
+  clip-path: none;
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.2rem 0.6rem;
+}
+
+.projects.modern .actions {
+  order: 3;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto 0 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.projects.modern .action {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 0.35rem 0.75rem;
+}
+
+.projects.modern .action.like:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.projects.modern .cyber-heart {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.projects.modern .action.like.on {
+  background: color-mix(in srgb, var(--like) 10%, transparent);
+  border-color: color-mix(in srgb, var(--like) 40%, transparent);
+  color: var(--like);
+  box-shadow: none;
+}
+
+.projects.modern .action.like.on .cyber-heart {
+  fill: var(--like);
+  stroke: var(--like);
+}
+
+.projects.modern .action.link {
+  border: 0;
+  padding-right: 0;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.projects.modern .action.link:hover {
+  color: var(--text);
+}
+
+@media (max-width: 768px) {
+  .projects.modern .projects-title {
+    font-size: 2.1rem;
+  }
 }
 
 @media (max-width: 768px) {

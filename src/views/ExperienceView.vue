@@ -1,9 +1,9 @@
 <template>
-  <section id="experience" class="experience">
+  <section id="experience" class="experience" :class="{ modern: !isCyber }">
     <div class="hud-frame"></div>
     <SectionCues up-to="/" down-to="/projects" />
     <div class="experience-container">
-      <p class="kicker">RECORD // EMPLOYMENT</p>
+      <p class="kicker">{{ isCyber ? 'RECORD // EMPLOYMENT' : 'Career' }}</p>
       <h2 class="experience-title">Experience</h2>
 
       <ol class="timeline">
@@ -16,7 +16,7 @@
             <h3 class="timeline-org">{{ item.org }}</h3>
             <p class="timeline-role">{{ item.role }}</p>
             <p v-if="item.description" class="timeline-desc">{{ item.description }}</p>
-            <div v-else class="timeline-desc redacted" aria-label="Redacted">
+            <div v-else-if="isCyber" class="timeline-desc redacted" aria-label="Redacted">
               <span></span>
               <span></span>
               <span></span>
@@ -30,10 +30,13 @@
 
 <script lang="ts" setup>
 import SectionCues from '@/components/SectionCues.vue'
+import { useTheme } from '@/composables/useTheme'
 import ibmLogo from '@/assets/experience/IBM.png'
 import landisGyrLogo from '@/assets/experience/Landis+Gyr.png'
 import arbysLogo from '@/assets/experience/Arbys.png'
 import taekwondoLogo from '@/assets/experience/Taekwondo.png'
+
+const { isCyber } = useTheme()
 
 const entries = [
   {
@@ -107,7 +110,7 @@ const entries = [
 .kicker {
   margin: 0 0 0.5rem;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -191,7 +194,7 @@ const entries = [
 
 .timeline-dates {
   margin: 0 0 0.25rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -208,7 +211,7 @@ const entries = [
 
 .timeline-role {
   margin: 0 0 0.7rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -218,7 +221,7 @@ const entries = [
 .timeline-desc {
   margin: 0;
   min-height: 2.4rem;
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   line-height: 1.45;
@@ -252,6 +255,104 @@ const entries = [
 
 .timeline-desc.redacted span:nth-child(3) {
   width: 58%;
+}
+
+/* Modern theme */
+
+.experience.modern {
+  --accent: var(--brand);
+  background: var(--bg-deep);
+}
+
+.experience.modern .hud-frame {
+  display: none;
+}
+
+.experience.modern .kicker {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.experience.modern .experience-title {
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.experience.modern .timeline {
+  border-left: 2px solid var(--border);
+}
+
+.experience.modern .timeline-item::before {
+  left: -7px;
+  top: 1.6rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--bg-deep);
+  transform: none;
+}
+
+.experience.modern .logo-slot {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.5rem;
+}
+
+.experience.modern .timeline-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  clip-path: none;
+  box-shadow: var(--shadow-sm);
+  padding: 1.1rem 1.3rem;
+}
+
+.experience.modern .timeline-dates {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.experience.modern .timeline-org {
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.experience.modern .timeline-role {
+  margin-bottom: 0;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.experience.modern .timeline-desc {
+  margin-top: 0.6rem;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .experience.modern .experience-title {
+    font-size: 2.1rem;
+  }
 }
 
 @media (max-width: 768px) {

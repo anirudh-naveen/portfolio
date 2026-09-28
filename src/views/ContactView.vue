@@ -1,12 +1,16 @@
 <template>
-  <section id="contact" class="contact">
+  <section id="contact" class="contact" :class="{ modern: !isCyber }">
     <SectionCues up-to="/skills" />
     <div class="contact-container">
-      <p class="kicker">UPLINK // DIRECT</p>
+      <p class="kicker">{{ isCyber ? 'UPLINK // DIRECT' : 'Get in touch' }}</p>
       <h2 class="contact-title">Contact</h2>
-      <p class="contact-subtitle">
+      <p v-if="isCyber" class="contact-subtitle">
         Insert encrypted message here. Attempts to communicate will be acknowledged as soon as
         possible.
+      </p>
+      <p v-else class="contact-subtitle">
+        Have a question or an opportunity in mind? Send me a message and I'll get back to you as
+        soon as I can.
       </p>
 
       <form class="contact-form" @submit.prevent="handleSubmit">
@@ -23,6 +27,9 @@
 import { ref } from 'vue'
 import emailjs from 'emailjs-com'
 import SectionCues from '@/components/SectionCues.vue'
+import { useTheme } from '@/composables/useTheme'
+
+const { isCyber } = useTheme()
 
 const form = ref({
   name: '',
@@ -60,7 +67,7 @@ function handleSubmit() {
   --glow: rgba(232, 121, 249, 0.42);
   input::placeholder,
   textarea::placeholder {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-mono);
     font-size: 0.85rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -106,7 +113,7 @@ function handleSubmit() {
 .kicker {
   margin: 0 0 0.5rem;
   color: var(--accent-2);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.38em;
   text-transform: uppercase;
@@ -140,7 +147,7 @@ textarea {
   border: 1px solid color-mix(in srgb, var(--accent) 32%, #1d3344);
   background: rgba(10, 18, 32, 0.9);
   color: var(--text);
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-body);
   font-size: 1.05rem;
   outline: none;
 }
@@ -155,7 +162,7 @@ textarea:focus {
   padding: 0.9rem;
   background: var(--accent);
   color: var(--bg-void);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.82rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -177,5 +184,90 @@ textarea:focus {
   background: var(--accent-2);
   border-color: var(--accent-2);
   box-shadow: 0 0 18px var(--glow);
+}
+
+/* Modern theme */
+
+.contact.modern {
+  --accent: var(--brand);
+  background: var(--bg-void);
+}
+
+.contact.modern::before {
+  display: none;
+}
+
+.contact.modern .kicker {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.contact.modern .contact-title {
+  margin-top: 0;
+  color: var(--text);
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  text-shadow: none;
+}
+
+.contact.modern .contact-subtitle {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.contact.modern input,
+.contact.modern textarea {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 1rem;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.contact.modern input::placeholder,
+.contact.modern textarea::placeholder {
+  color: var(--text-dim);
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact.modern input:focus,
+.contact.modern textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.contact.modern .send-button {
+  margin-top: 0.3rem;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  clip-path: none;
+  color: var(--on-brand);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.contact.modern .send-button:hover {
+  background: color-mix(in srgb, var(--accent) 88%, var(--text));
+  border-color: color-mix(in srgb, var(--accent) 88%, var(--text));
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .contact.modern .contact-title {
+    font-size: 2.1rem;
+  }
 }
 </style>
