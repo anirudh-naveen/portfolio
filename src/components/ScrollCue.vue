@@ -2,10 +2,13 @@
   <a
     :href="href"
     class="scroll-cue"
-    :class="[direction, { modern: !isCyber }]"
+    :class="[direction, { modern: !isCyber, vintage: isVintage }]"
     :aria-label="direction === 'up' ? 'Scroll to previous section' : 'Scroll to next section'"
     @click.prevent="navigateTo?.(to)"
   >
+    <svg v-if="isVintage" class="cue-shape" viewBox="0 0 32 34" aria-hidden="true">
+      <polygon :points="direction === 'up' ? '16,2 30,32 2,32' : '2,2 30,2 16,32'" />
+    </svg>
     <span></span>
   </a>
 </template>
@@ -22,7 +25,7 @@ const props = withDefaults(
   { direction: 'down' },
 )
 
-const { isCyber } = useTheme()
+const { isCyber, isVintage } = useTheme()
 const navigateTo = inject<(path: string) => void>('navigateTo')
 const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
 </script>
@@ -85,6 +88,47 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
   background: var(--accent);
 }
 
+/* Vintage: a triangle pointing the way, like a map marker */
+.scroll-cue.vintage {
+  width: 32px;
+  height: 34px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding-top: 7px;
+}
+
+.scroll-cue.vintage.up {
+  padding-top: 0;
+  padding-bottom: 7px;
+}
+
+.cue-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cue-shape polygon {
+  fill: var(--bg-card);
+  stroke: var(--border-strong);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease;
+}
+
+.scroll-cue.vintage:hover .cue-shape polygon {
+  stroke: var(--accent);
+}
+
+/* The dot travels toward the point, stopping before the triangle narrows too far */
+.scroll-cue.vintage span {
+  position: relative;
+  --travel: 12px;
+}
+
 @keyframes cue-down {
   0% {
     opacity: 1;
@@ -92,7 +136,7 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
   }
   100% {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(var(--travel, 14px));
   }
 }
 
@@ -103,7 +147,7 @@ const href = computed(() => `#${props.to.replace(/^\//, '') || 'home'}`)
   }
   100% {
     opacity: 0;
-    transform: translateY(-14px);
+    transform: translateY(calc(-1 * var(--travel, 14px)));
   }
 }
 </style>

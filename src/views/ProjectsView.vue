@@ -99,6 +99,7 @@ import SectionCues from '@/components/SectionCues.vue'
 import { useTearToReorder } from '@/composables/useTearToReorder'
 import { useTheme } from '@/composables/useTheme'
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
+import pokeBattleCalcImg from '@/assets/projects/PokeBattleCalc.webp'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
 import aniLounge from '@/assets/projects/AniLounge.png'
@@ -147,6 +148,15 @@ const projects = [
     image: fakeNewsImg,
     author: maji,
     tags: ['Python', 'TensorFlow', 'Keras', 'Streamlit', 'Docker', 'LSTM', 'NumPy', 'Pandas'],
+  },
+  {
+    slug: 'poke-battle-calc',
+    title: 'PokéBattleCalc',
+    description: 'Damage calculator for Pokémon Champions with singles and doubles battle support.',
+    link: 'https://anirudh-naveen.github.io/poke-battle-calc/',
+    image: pokeBattleCalcImg,
+    author: maji,
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Vite', 'Vitest', 'Git'],
   },
   {
     slug: 'travel-planner',

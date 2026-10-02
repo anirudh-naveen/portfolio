@@ -40,17 +40,19 @@
 
     <GlitchTransition v-if="isCyber" :active="glitching" />
     <CloudTransition v-else-if="isVintage" :active="clouding" />
+    <TimeWarp />
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, provide, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import AmbientGlitch from '@/components/AmbientGlitch.vue'
 import AppNavbar from '@/components/AppNavbar.vue'
 import CloudTransition from '@/components/CloudTransition.vue'
 import GlitchTransition from '@/components/GlitchTransition.vue'
 import NetBackground from '@/components/NetBackground.vue'
+import TimeWarp from '@/components/TimeWarp.vue'
 import VintageMap from '@/components/VintageMap.vue'
 import HomeView from '@/views/HomeView.vue'
 import ExperienceView from '@/views/ExperienceView.vue'
@@ -71,7 +73,7 @@ const sections = [
 
 const router = useRouter()
 const route = useRoute()
-const { isCyber, isVintage } = useTheme()
+const { theme, isCyber, isVintage } = useTheme()
 const activeSection = ref<SectionId>('home')
 const glitching = ref(false)
 const clouding = ref(false)
@@ -81,6 +83,26 @@ const scrollFlicker = ref(false)
 // (plus up to 90ms of puff stagger), so jump just after that and unmount once all have faded.
 const CLOUD_COVER_MS = 340
 const CLOUD_TOTAL_MS = 1080
+
+// On a theme swap (behind the time warp), drop any in-flight effects from the old theme so they
+// can't carry over, then return to the same section, as section heights differ between themes.
+watch(theme, async () => {
+  const section = activeSection.value
+  glitching.value = false
+  clouding.value = false
+  scrollFlicker.value = false
+  if (flickerTimer !== null) window.clearTimeout(flickerTimer)
+  if (unlockTimer !== null) window.clearTimeout(unlockTimer)
+
+  // The jump is not the visitor scrolling: keep it from triggering the scroll spy or glitch.
+  lockSpy = true
+  await nextTick()
+  scrollToSection(section, 'instant')
+  lastY = window.scrollY
+  unlockTimer = window.setTimeout(() => {
+    lockSpy = false
+  }, 120)
+})
 
 const spyIds = ['home', 'experience', 'projects', 'skills', 'contact'] as const
 
@@ -487,7 +509,7 @@ html.theme-vintage ::selection {
   opacity: 0.14;
 }
 
-.page-stage.is-scroll-glitch {
+html.theme-cyber .page-stage.is-scroll-glitch {
   animation: pageTear 0.16s steps(2, end);
 }
 
@@ -560,16 +582,29 @@ html.theme-vintage .section-dot.active {
   transform: scale(1.3);
 }
 
+/* Vintage: map-pin pennants pointing at the page */
 html.theme-vintage .section-dot {
   width: 9px;
-  height: 9px;
-  border: 1.5px solid var(--text-muted);
-  background: transparent;
+  height: 10px;
+  border-radius: 0;
+  background: var(--text-muted);
+  opacity: 0.55;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    opacity 0.25s ease;
+}
+
+html.theme-vintage .section-dot:hover {
+  background: var(--text-dim);
+  opacity: 0.85;
 }
 
 html.theme-vintage .section-dot.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--bg-void), 0 0 0 3px var(--accent);
+  background: var(--accent);
+  opacity: 1;
+  transform: scale(1.45);
 }
 
 @media (max-width: 768px) {

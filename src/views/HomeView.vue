@@ -32,8 +32,12 @@
         </header>
 
         <div class="id-body">
-          <div v-if="!isCyber" class="id-photo" aria-hidden="true">
-            <span class="monogram">{{ isVintage ? 'A.N.' : 'AN' }}</span>
+          <div v-if="!isCyber" class="id-photo">
+            <img
+              :src="isVintage ? pastPhoto : presentPhoto"
+              alt="Anirudh Naveen"
+              class="portrait"
+            />
           </div>
           <div v-else class="id-photo" aria-hidden="true">
             <div class="photo-silhouette"></div>
@@ -101,6 +105,8 @@
 import SectionCues from '@/components/SectionCues.vue'
 import { computed } from 'vue'
 import { useTheme } from '@/composables/useTheme'
+import pastPhoto from '@/assets/profile/past.jpg'
+import presentPhoto from '@/assets/profile/present.webp'
 
 const { isCyber, isVintage } = useTheme()
 
@@ -231,6 +237,15 @@ const kicker = computed(() =>
     radial-gradient(circle at 50% 28%, #243040 0%, #070b14 74%);
   border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   overflow: hidden;
+}
+
+.portrait {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
 }
 
 .photo-silhouette {
@@ -484,13 +499,7 @@ const kicker = computed(() =>
   border: 0;
   border-radius: 16px;
   background: linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 50%, #ec4899));
-}
-
-.landing.modern .monogram {
-  color: #fff;
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  overflow: hidden;
 }
 
 .landing.modern .id-row {
@@ -661,16 +670,6 @@ const kicker = computed(() =>
   right: -10px;
   bottom: -25px;
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
-}
-
-.landing.vintage .monogram {
-  color: #f3e3bf;
-  font-family: var(--font-display);
-  font-size: 2.6rem;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 0 rgb(0 0 0 / 0.3);
 }
 
 .landing.vintage .id-row {
