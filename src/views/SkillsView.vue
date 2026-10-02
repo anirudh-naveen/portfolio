@@ -13,7 +13,7 @@
     <div class="marquee" aria-label="Technologies">
       <div class="marquee-track tech">
         <div v-for="copy in 2" :key="`tech-${copy}`" class="marquee-group">
-          <div v-for="item in technologies" :key="`${copy}-${item.name}`" class="skill-card">
+          <div v-for="(item, i) in techLoop" :key="`${copy}-${i}`" class="skill-card">
             <span v-if="isCyber" class="ad-tag" aria-hidden="true"><span>AD</span></span>
             <img :src="item.image" :alt="item.name" />
             <p>{{ item.name }}</p>
@@ -29,7 +29,7 @@
     <div class="marquee" aria-label="Languages">
       <div class="marquee-track lang">
         <div v-for="copy in 2" :key="`lang-${copy}`" class="marquee-group">
-          <div v-for="name in languages" :key="`${copy}-${name}`" class="languages-card">
+          <div v-for="(name, i) in langLoop" :key="`${copy}-${i}`" class="languages-card">
             {{ name }}
           </div>
         </div>
@@ -78,7 +78,16 @@ const languages = [
   'TypeScript',
   'SQL',
   'Golang',
+  'Bash',
+  'CSS',
 ]
+
+// Each marquee group must be wider than the widest screen, or a gap shows at the
+// end of the loop, so short lists repeat inside each group.
+const TECH_REPEATS = 2
+const LANG_REPEATS = 3
+const techLoop = Array.from({ length: TECH_REPEATS }, () => technologies).flat()
+const langLoop = Array.from({ length: LANG_REPEATS }, () => languages).flat()
 </script>
 
 <style scoped>
@@ -154,11 +163,12 @@ const languages = [
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-left 32s linear infinite;
+  /* Durations scale with the repeat counts so the scroll speed stays the same */
+  animation: marquee-left 64s linear infinite;
 }
 
 .marquee-track.lang {
-  animation-duration: 26s;
+  animation-duration: 78s;
 }
 
 .marquee:hover .marquee-track {

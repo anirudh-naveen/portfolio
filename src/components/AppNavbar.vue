@@ -11,7 +11,7 @@
           class="theme-switch"
           role="radiogroup"
           aria-label="Site theme"
-          :style="{ '--pos': THEMES.indexOf(theme) }"
+          :style="{ '--pos': THEMES.indexOf(selectedTheme) }"
           @keydown="onSwitchKey"
         >
           <span class="switch-thumb" aria-hidden="true"></span>
@@ -21,10 +21,10 @@
             type="button"
             class="switch-stop"
             role="radio"
-            :aria-checked="theme === option"
+            :aria-checked="selectedTheme === option"
             :aria-label="themeLabels[option]"
             :title="`${themeLabels[option]} theme`"
-            :tabindex="theme === option ? 0 : -1"
+            :tabindex="selectedTheme === option ? 0 : -1"
             @click="setTheme(option)"
           ></button>
         </div>
@@ -74,7 +74,7 @@
 import { nextTick, ref } from 'vue'
 import { THEMES, useTheme, type SiteTheme } from '@/composables/useTheme'
 
-const { theme, isCyber, isVintage, setTheme } = useTheme()
+const { selectedTheme, isCyber, isVintage, setTheme } = useTheme()
 
 const themeLabels: Record<SiteTheme, string> = {
   vintage: 'Vintage',
@@ -89,7 +89,7 @@ async function onSwitchKey(event: KeyboardEvent) {
   const step = { ArrowLeft: -1, ArrowUp: -1, ArrowRight: 1, ArrowDown: 1 }[event.key]
   if (!step) return
   event.preventDefault()
-  const index = THEMES.indexOf(theme.value)
+  const index = THEMES.indexOf(selectedTheme.value)
   const next = THEMES[Math.min(THEMES.length - 1, Math.max(0, index + step))]
   if (!next) return
   setTheme(next)

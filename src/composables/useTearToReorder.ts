@@ -28,7 +28,12 @@ export function useTearToReorder<T extends Slugged>(
       const saved = JSON.parse(localStorage.getItem(storageKey) ?? '[]') as unknown
       if (!Array.isArray(saved)) return defaultOrder
       const known = saved.filter((slug): slug is string => bySlug.has(slug))
-      return [...new Set([...known, ...defaultOrder])]
+      // Items added since the order was saved slot in at their default position.
+      const merged = [...new Set(known)]
+      defaultOrder.forEach((slug, i) => {
+        if (!merged.includes(slug)) merged.splice(Math.min(i, merged.length), 0, slug)
+      })
+      return merged
     } catch {
       return defaultOrder
     }
