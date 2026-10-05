@@ -104,6 +104,7 @@ import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
 import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
 import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
+import localhostDashboardImg from '@/assets/projects/LocalHostDash.png'
 
 const { isCyber, isVintage } = useTheme()
 
@@ -141,15 +142,6 @@ const projects = [
     ],
   },
   {
-    slug: 'fake-news-detector',
-    title: 'Fake News Detector',
-    description: 'Deep Learning model that is trained to detect fake or sensationalized news.',
-    link: 'https://github.com/anirudh-naveen/fake-news-detector/blob/main/README.md',
-    image: fakeNewsImg,
-    author: maji,
-    tags: ['Python', 'TensorFlow', 'Keras', 'Streamlit', 'Docker', 'LSTM', 'NumPy', 'Pandas'],
-  },
-  {
     slug: 'poke-battle-calc',
     title: 'PokéBattleCalc',
     description: 'Damage calculator for Pokémon Champions with singles and doubles battle support.',
@@ -157,6 +149,24 @@ const projects = [
     image: pokeBattleCalcImg,
     author: maji,
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Vite', 'Vitest', 'Git'],
+  },
+  {
+    slug: 'localhost-dashboard',
+    title: 'Localhost Dashboard',
+    description: 'A dashboard for monitoring and managing localhost services.',
+    link: 'https://github.com/anirudh-naveen/localhost-dashboard/blob/main/README.md',
+    image: localhostDashboardImg,
+    author: maji,
+    tags: ['TypeScript', 'React', 'Node.js', 'Electron', 'Chrome Extension', 'Vite', 'Docker', 'Vitest'],
+  },
+  {
+    slug: 'fake-news-detector',
+    title: 'Fake News Detector',
+    description: 'Deep Learning model that is trained to detect fake or sensationalized news.',
+    link: 'https://github.com/anirudh-naveen/fake-news-detector/blob/main/README.md',
+    image: fakeNewsImg,
+    author: maji,
+    tags: ['Python', 'TensorFlow', 'Keras', 'Streamlit', 'Docker', 'LSTM', 'NumPy', 'Pandas'],
   },
   {
     slug: 'travel-planner',
@@ -220,7 +230,11 @@ function persist() {
     if (!row) continue
     dump[slug] = { liked: row.liked, pushed: row.pushed }
   }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(dump))
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dump))
+  } catch {
+    // Storage blocked; the like still counts, it just won't be remembered next visit.
+  }
 }
 
 async function readRemote(slug: string) {
