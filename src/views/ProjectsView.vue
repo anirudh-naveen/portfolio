@@ -355,7 +355,7 @@ onMounted(async () => {
 .projects-container {
   position: relative;
   z-index: 1;
-  max-width: 1120px;
+  max-width: 1320px;
   margin: 0 auto;
   text-align: center;
 }
@@ -386,12 +386,18 @@ onMounted(async () => {
   color: var(--accent-2);
 }
 
-/* Three projects per row in every theme (one column on phones) */
+/* Four projects per row on wide screens, never fewer than three */
 .feed {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.35rem;
+}
+
+@media (min-width: 1200px) {
+  .feed {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .post {
@@ -478,8 +484,9 @@ onMounted(async () => {
 
 .post-img {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: top center;
   display: block;
   filter: saturate(0.9) contrast(1.06);
   border-top: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
@@ -685,7 +692,6 @@ onMounted(async () => {
 }
 
 .projects.modern .post-img {
-  height: 190px;
   border-top: 0;
   border-bottom: 1px solid var(--border);
   filter: none;
@@ -992,28 +998,139 @@ onMounted(async () => {
   .projects-title {
     font-size: 2rem;
   }
+}
 
-  .post-img {
-    height: 160px;
+/* Three narrow columns on tablets and phones: tighten everything to fit */
+@media (max-width: 900px) {
+  .feed,
+  .projects.modern .feed {
+    gap: 0.9rem;
   }
 
-  .projects.modern .post-img {
-    height: 150px;
+  .projects.vintage .feed {
+    gap: 1.6rem 1rem;
+  }
+
+  .post-body,
+  .projects.modern .post-body {
+    padding: 0.7rem 0.75rem 0.8rem;
+  }
+
+  .caption,
+  .projects.modern .caption {
+    font-size: 0.82rem;
+  }
+
+  .projects.modern .caption-title {
+    font-size: 1rem;
+  }
+
+  .projects.vintage .caption-title {
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 640px) {
-  .projects-container {
-    max-width: 560px;
+  .projects {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
   }
 
-  .feed {
+  .feed,
+  .projects.modern .feed {
+    gap: 0.5rem;
+  }
+
+  .projects.vintage .feed {
+    gap: 1.1rem 0.6rem;
+  }
+
+  .projects.modern .post {
+    border-radius: 10px;
+  }
+
+  .projects.vintage .post {
+    padding: 5px 5px 0;
+  }
+
+  .projects.vintage .post::before {
+    top: -8px;
+    width: 52px;
+    height: 14px;
+  }
+
+  .post-head {
     grid-template-columns: 1fr;
+    padding: 0.45rem;
   }
 
-  .post-img,
-  .projects.modern .post-img {
-    height: 210px;
+  .avatar,
+  .live-tag,
+  .node,
+  .comment-lock {
+    display: none;
+  }
+
+  .handle {
+    font-size: 0.62rem;
+  }
+
+  .post-body,
+  .projects.modern .post-body,
+  .projects.vintage .post-body {
+    padding: 0.45rem 0.4rem 0.5rem;
+  }
+
+  .caption,
+  .projects.modern .caption,
+  .projects.vintage .caption {
+    margin-bottom: 0.4rem;
+    font-size: 0.62rem;
+    line-height: 1.35;
+  }
+
+  .projects.modern .caption-title {
+    font-size: 0.78rem;
+  }
+
+  .projects.vintage .caption-title {
+    font-size: 1.05rem;
+  }
+
+  .tags,
+  .projects.modern .tags {
+    gap: 0.2rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .tags li,
+  .projects.modern .tags li,
+  .projects.vintage .tags li {
+    font-size: 0.52rem;
+    padding: 0.1rem 0.3rem;
+  }
+
+  .actions,
+  .projects.modern .actions {
+    gap: 0.25rem;
+    padding-top: 0.45rem;
+  }
+
+  .action,
+  .projects.modern .action,
+  .projects.vintage .action {
+    font-size: 0.58rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .like-count {
+    font-size: 0.56rem;
+  }
+
+  .cyber-heart,
+  .projects.modern .cyber-heart {
+    width: 11px;
+    height: 11px;
   }
 }
 </style>
