@@ -95,6 +95,18 @@
             <img src="@/assets/socialmedia/instagram.png" alt="" class="link-icon" />
             Instagram
           </a>
+          <a
+            href="https://open.spotify.com/user/ve3b95vjn606fi5g97l6yf76u"
+            target="_blank"
+            class="link-button"
+          >
+            <img src="@/assets/socialmedia/spotify.svg" alt="" class="link-icon" />
+            Spotify
+          </a>
+          <a href="https://steamcommunity.com/id/etherealsol/" target="_blank" class="link-button">
+            <img src="@/assets/socialmedia/steam.svg" alt="" class="link-icon" />
+            Steam
+          </a>
         </div>
       </article>
     </div>
