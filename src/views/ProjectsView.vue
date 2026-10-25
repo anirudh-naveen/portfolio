@@ -8,9 +8,7 @@
       <h2 class="projects-title">Projects</h2>
       <p v-if="isVintage" class="scrap-hint">
         Tear a photo off the page to rearrange them.
-        <button v-if="isReordered" type="button" class="tidy" @click="resetOrder">
-          Tidy up
-        </button>
+        <button v-if="isReordered" type="button" class="tidy" @click="resetOrder">Tidy up</button>
       </p>
 
       <div ref="feedRef" class="feed">
@@ -105,6 +103,7 @@ import everythingMazesImg from '@/assets/projects/EverythingMazes.png'
 import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
 import localhostDashboardImg from '@/assets/projects/LocalHostDash.png'
+import spotassistImg from '@/assets/projects/Spotassist.png'
 
 const { isCyber, isVintage } = useTheme()
 
@@ -142,13 +141,13 @@ const projects = [
     ],
   },
   {
-    slug: 'poke-battle-calc',
-    title: 'PokéBattleCalc',
-    description: 'Damage calculator for Pokémon Champions with singles and doubles battle support.',
-    link: 'https://anirudh-naveen.github.io/poke-battle-calc/',
-    image: pokeBattleCalcImg,
+    slug: 'spotassist',
+    title: 'Spotassist',
+    description: 'Spotify assistant that can filter and alter playlists based on genres and vibes.',
+    link: 'https://anirudh-naveen.github.io/spotify-library-assistant/',
+    image: spotassistImg,
     author: maji,
-    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Vite', 'Vitest', 'Git'],
+    tags: ['JavaScript', 'HTML', 'CSS', 'SVG', 'Python', 'Spotify Web API', 'pytest', 'Git'],
   },
   {
     slug: 'localhost-dashboard',
@@ -157,7 +156,25 @@ const projects = [
     link: 'https://github.com/anirudh-naveen/localhost-dashboard/blob/main/README.md',
     image: localhostDashboardImg,
     author: maji,
-    tags: ['TypeScript', 'React', 'Node.js', 'Electron', 'Chrome Extension', 'Vite', 'Docker', 'Vitest'],
+    tags: [
+      'TypeScript',
+      'React',
+      'Node.js',
+      'Electron',
+      'Chrome Extension',
+      'Vite',
+      'Docker',
+      'Vitest',
+    ],
+  },
+  {
+    slug: 'poke-battle-calc',
+    title: 'PokéBattleCalc',
+    description: 'Damage calculator for Pokémon Champions with singles and doubles battle support.',
+    link: 'https://anirudh-naveen.github.io/poke-battle-calc/',
+    image: pokeBattleCalcImg,
+    author: maji,
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'Vite', 'Vitest', 'Git'],
   },
   {
     slug: 'fake-news-detector',
@@ -815,9 +832,7 @@ onMounted(async () => {
   padding: 12px 12px 0;
   border: 1px solid rgb(62 39 17 / 0.12);
   border-radius: 2px;
-  background:
-    radial-gradient(ellipse at 0% 100%, rgb(139 90 43 / 0.1), transparent 40%),
-    #faf3df;
+  background: radial-gradient(ellipse at 0% 100%, rgb(139 90 43 / 0.1), transparent 40%), #faf3df;
   box-shadow: var(--shadow);
   transform: rotate(-1.2deg);
   transition:
