@@ -104,6 +104,7 @@ import aniLounge from '@/assets/projects/AniLounge.png'
 import fakeNewsImg from '@/assets/projects/FakeNewsDetector.png'
 import localhostDashboardImg from '@/assets/projects/LocalHostDash.png'
 import spotassistImg from '@/assets/projects/Spotassist.png'
+import veiledChessImg from '@/assets/projects/Veiled-Chess.png'
 
 const { isCyber, isVintage } = useTheme()
 
@@ -141,13 +142,27 @@ const projects = [
     ],
   },
   {
-    slug: 'spotassist',
-    title: 'Spotassist',
-    description: 'Spotify assistant that can filter and alter playlists based on genres and vibes.',
-    link: 'https://anirudh-naveen.github.io/spotify-library-assistant/',
-    image: spotassistImg,
+    slug: 'veiled-chess',
+    title: 'Veiled Chess',
+    description: 'Version of king-capture chess where the opposing pieces are unknown.',
+    link: 'https://anirudh-naveen.github.io/veiled_chess/',
+    image: veiledChessImg,
     author: maji,
-    tags: ['JavaScript', 'HTML', 'CSS', 'SVG', 'Python', 'Spotify Web API', 'pytest', 'Git'],
+    ttags: [
+      'TypeScript',
+      'PostgreSQL',
+      'React',
+      'Node.js',
+      'Fastify',
+      'WebSockets',
+      'Vitest',
+      'SVG',
+      'CSS',
+      'JWT',
+      'Docker',
+      'Railway',
+      'Git',
+    ],
   },
   {
     slug: 'localhost-dashboard',
@@ -166,6 +181,15 @@ const projects = [
       'Docker',
       'Vitest',
     ],
+  },
+  {
+    slug: 'spotassist',
+    title: 'Spotassist',
+    description: 'Spotify assistant that can filter and alter playlists based on genres and vibes.',
+    link: 'https://anirudh-naveen.github.io/spotify-library-assistant/',
+    image: spotassistImg,
+    author: maji,
+    tags: ['JavaScript', 'HTML', 'CSS', 'SVG', 'Python', 'Spotify Web API', 'pytest', 'Git'],
   },
   {
     slug: 'poke-battle-calc',
@@ -195,15 +219,6 @@ const projects = [
     tags: ['Java', 'Android Studio', 'Firebase', 'MVVM', 'Git'],
   },
   {
-    slug: 'active-knockout',
-    title: 'Active Knockout',
-    description: 'Meta Quest VR exercise experience with interactive boxing gameplay.',
-    link: 'https://github.com/anirudh-naveen/ActiveKnockout',
-    image: activeKnockoutImg,
-    author: thutoy,
-    tags: ['Unity', 'C#', 'Blender', 'Meta Quest', 'VR'],
-  },
-  {
     slug: 'everything-mazes',
     title: 'Everything Mazes',
     description: 'Unity video game where players can generate, customize, and play through mazes.',
@@ -211,6 +226,15 @@ const projects = [
     image: everythingMazesImg,
     author: maji,
     tags: ['Unity', 'C#', 'ShaderLab', 'Git'],
+  },
+  {
+    slug: 'active-knockout',
+    title: 'Active Knockout',
+    description: 'Meta Quest VR exercise experience with interactive boxing gameplay.',
+    link: 'https://github.com/anirudh-naveen/ActiveKnockout',
+    image: activeKnockoutImg,
+    author: thutoy,
+    tags: ['Unity', 'C#', 'Blender', 'Meta Quest', 'VR'],
   },
 ]
 
