@@ -149,7 +149,7 @@ const projects = [
     link: 'https://anirudh-naveen.github.io/veiled_chess/',
     image: veiledChessImg,
     author: maji,
-    ttags: [
+    tags: [
       'TypeScript',
       'PostgreSQL',
       'React',
