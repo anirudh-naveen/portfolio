@@ -96,6 +96,7 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import SectionCues from '@/components/SectionCues.vue'
 import { useTearToReorder } from '@/composables/useTearToReorder'
 import { useTheme } from '@/composables/useTheme'
+
 import activeKnockoutImg from '@/assets/projects/ActiveKnockout.png'
 import pokeBattleCalcImg from '@/assets/projects/PokeBattleCalc.webp'
 import travelPlannerImg from '@/assets/projects/TravelPlanner.png'
